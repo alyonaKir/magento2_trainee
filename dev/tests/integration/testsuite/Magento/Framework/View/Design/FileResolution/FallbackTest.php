@@ -91,11 +91,11 @@ class FallbackTest extends \PHPUnit\Framework\TestCase
             ],
             'non-modular: inherit parent theme' => [
                 'fixture_template.phtml', 'Vendor_ViewTest/custom_theme', null,
-                '%s/frontend/Vendor/default/templates/fixture_template.phtml',
+                '%s/frontend/Vendor/default/template/fixture_template.phtml',
             ],
             'non-modular: inherit grandparent theme' => [
                 'fixture_template.phtml', 'Vendor_ViewTest/custom_theme2', null,
-                '%s/frontend/Vendor/default/templates/fixture_template.phtml',
+                '%s/frontend/Vendor/default/template/fixture_template.phtml',
             ],
             'modular: no default inheritance' => [
                 'fixture_template.phtml', 'Vendor_ViewTest/standalone_theme', 'ViewTest_Module',
@@ -107,11 +107,11 @@ class FallbackTest extends \PHPUnit\Framework\TestCase
             ],
             'modular: inherit parent theme' => [
                 'fixture_template.phtml', 'Vendor_ViewTest/custom_theme', 'ViewTest_Module',
-                '%s/frontend/Vendor/default/ViewTest_Module/templates/fixture_template.phtml',
+                '%s/frontend/Vendor/default/ViewTest_Module/template/fixture_template.phtml',
             ],
             'modular: inherit grandparent theme' => [
                 'fixture_template.phtml', 'Vendor_ViewTest/custom_theme2', 'ViewTest_Module',
-                '%s/frontend/Vendor/default/ViewTest_Module/templates/fixture_template.phtml',
+                '%s/frontend/Vendor/default/ViewTest_Module/template/fixture_template.phtml',
             ],
         ];
     }

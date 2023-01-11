@@ -109,7 +109,7 @@ class OrdersFixture extends Fixture
     protected $priority = 135;
 
     /**
-     * INSERT query templates.
+     * INSERT query template.
      *
      * @var array
      */
@@ -466,7 +466,7 @@ class OrdersFixture extends Fixture
     }
 
     /**
-     * Load and prepare INSERT query templates data from external file.
+     * Load and prepare INSERT query template data from external file.
      *
      * Queries are prepared using external json file, where keys are DB column names and values represent data,
      * to be inserted to the table. Data may contain a default value or a placeholder which is replaced later during

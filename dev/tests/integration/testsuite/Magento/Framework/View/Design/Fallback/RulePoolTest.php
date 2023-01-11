@@ -189,28 +189,28 @@ class RulePoolTest extends \PHPUnit\Framework\TestCase
                 \Magento\Framework\View\Design\Fallback\RulePool::TYPE_TEMPLATE_FILE,
                 [],
                 [
-                    $themeOnePath . '/ViewTest_Module/templates',
-                    $themeTwoPath . '/ViewTest_Module/templates',
-                    $modulePath . '/view/area/templates',
-                    $modulePath . '/view/base/templates',
+                    $themeOnePath . '/ViewTest_Module/template',
+                    $themeTwoPath . '/ViewTest_Module/template',
+                    $modulePath . '/view/area/template',
+                    $modulePath . '/view/base/template',
                 ],
             ],
             'template, non-modular' => [
                 \Magento\Framework\View\Design\Fallback\RulePool::TYPE_TEMPLATE_FILE,
                 ['namespace' => null, 'module_name' => null],
                 [
-                    $themeOnePath . '/templates',
-                    $themeTwoPath . '/templates',
+                    $themeOnePath . '/template',
+                    $themeTwoPath . '/template',
                 ],
             ],
             'template, non-modular-magento-core' => [
                 \Magento\Framework\View\Design\Fallback\RulePool::TYPE_TEMPLATE_FILE,
                 ['module_name' => 'Magento_Theme'],
                 [
-                    $themeOnePath . '/Magento_Theme/templates',
-                    $themeTwoPath . '/Magento_Theme/templates',
-                    $coreModulePath . '/view/area/templates',
-                    $coreModulePath . '/view/base/templates',
+                    $themeOnePath . '/Magento_Theme/template',
+                    $themeTwoPath . '/Magento_Theme/template',
+                    $coreModulePath . '/view/area/template',
+                    $coreModulePath . '/view/base/template',
                 ],
             ],
 

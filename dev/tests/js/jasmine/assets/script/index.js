@@ -5,8 +5,8 @@
 define([
     'tests/assets/tools',
     'text!./config.json',
-    'text!./templates/selector.html',
-    'text!./templates/virtual.html'
+    'text!./template/selector.html',
+    'text!./template/virtual.html'
 ], function (tools, config, selectorTmpl, virtualTmpl) {
     'use strict';
 

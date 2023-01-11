@@ -148,7 +148,7 @@ class TemplateTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * Test template directive to ensure that templates can be loaded from modules
+     * Test template directive to ensure that template can be loaded from modules
      *
      * @param string $area
      * @param string $templateId
@@ -221,7 +221,7 @@ class TemplateTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * Test template directive to ensure that templates can be loaded from modules, overridden in backend, and
+     * Test template directive to ensure that template can be loaded from modules, overridden in backend, and
      * overridden in themes
      *
      * @magentoDataFixture Magento/Store/_files/core_fixturestore.php
@@ -258,7 +258,7 @@ class TemplateTest extends \PHPUnit\Framework\TestCase
         $this->model->setTemplateType($templateType);
         $this->model->setTemplateText($templateText);
 
-        // Allows for testing of templates overridden in backend
+        // Allows for testing of template overridden in backend
         if ($storeConfigPath) {
             $template = $this->objectManager->create(\Magento\Email\Model\Template::class);
             $templateData = [
@@ -368,7 +368,7 @@ class TemplateTest extends \PHPUnit\Framework\TestCase
         $template = '{{var store.isSaveAllowed()}} - {{template config_path="design/email/footer_template"}}';
         $this->model->setTemplateText($template);
 
-        // Allows for testing of templates overridden in backend
+        // Allows for testing of template overridden in backend
         $template = $this->objectManager->create(\Magento\Email\Model\Template::class);
         $templateData = [
             'template_code' => 'some_unique_code',

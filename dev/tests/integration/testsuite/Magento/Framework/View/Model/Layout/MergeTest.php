@@ -40,7 +40,7 @@ class MergeTest extends \PHPUnit\Framework\TestCase
         $layoutUpdate1->setHandle('fixture_handle_one');
         $layoutUpdate1->setXml(
             '<body>
-                <block class="Magento\Framework\View\Element\Template" 
+                <block class="Magento\Framework\View\Element\Template"
                        template="Magento_Framework::fixture_template_one.phtml"/>
             </body>'
         );
@@ -96,7 +96,7 @@ class MergeTest extends \PHPUnit\Framework\TestCase
                            template="Magento_Framework::fixture_template_one.phtml"/>
                 </body>
                 <body>
-                    <block class="Magento\Framework\View\Element\Template" 
+                    <block class="Magento\Framework\View\Element\Template"
                            template="Magento_Framework::fixture_template_two.phtml"/>
                 </body>
             </root>

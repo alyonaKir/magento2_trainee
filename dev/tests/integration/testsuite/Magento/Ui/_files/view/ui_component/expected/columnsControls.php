@@ -40,8 +40,8 @@ return [
                             'xsi:type' => 'string',
                             'value' => 'string',
                         ],
-                        'templates' => [
-                            'name' => 'templates',
+                        'template' => [
+                            'name' => 'template',
                             'xsi:type' => 'array',
                             'item' => [
                                 'headerMsg' => [

@@ -32,7 +32,7 @@ class PhpTest extends TestCase
     }
 
     /**
-     * See that templates get access to certain variables.
+     * See that template get access to certain variables.
      *
      * @return void
      */

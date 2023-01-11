@@ -40,7 +40,7 @@ class FileSystemTest extends \PHPUnit\Framework\TestCase
 
     public function testGetTemplateFileName()
     {
-        $expected = '%s/frontend/Test/default/Magento_Catalog/templates/theme_template.phtml';
+        $expected = '%s/frontend/Test/default/Magento_Catalog/template/theme_template.phtml';
         $actual = $this->_model->getTemplateFileName('Magento_Catalog::theme_template.phtml', []);
         $this->_testExpectedVersusActualFilename($expected, $actual);
     }

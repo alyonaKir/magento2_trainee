@@ -17,7 +17,7 @@ use Magento\TestFramework\TestCase\AbstractController;
 class CspUtilTest extends AbstractController
 {
     /**
-     * Test that CSP helper for templates works.
+     * Test that CSP helper for template works.
      *
      * @return void
      * @magentoConfigFixture default_store csp/mode/storefront/report_only 0

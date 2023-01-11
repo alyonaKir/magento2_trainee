@@ -335,7 +335,7 @@ class PhpRuleTest extends \PHPUnit\Framework\TestCase
     public function getDependencyInfoDataCaseGetTemplateUrlDataProvider()
     {
         return [ 'getUrl from ignore template' => [
-            'app/code/Magento/Backend/view/adminhtml/templates/dashboard/totalbar/script.phtml',
+            'app/code/Magento/Backend/view/adminhtml/template/dashboard/totalbar/script.phtml',
             '$getUrl("adminhtml/*/ajaxBlock")',
             []]];
     }

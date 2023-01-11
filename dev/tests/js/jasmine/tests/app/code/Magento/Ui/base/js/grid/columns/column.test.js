@@ -67,7 +67,7 @@ define([
             });
         });
 
-        describe('get templates methods', function () {
+        describe('get template methods', function () {
             it('getHeader', function () {
                 expect(column.getHeader()).toBe(column.headerTmpl);
             });

@@ -51,7 +51,7 @@ class BlocksTest extends \PHPUnit\Framework\TestCase
         $invoker = new \Magento\Framework\App\Utility\AggregateInvoker($this);
         $invoker(
             /**
-             * Check that containers are not used as blocks in templates
+             * Check that containers are not used as blocks in template
              *
              * @param string $alias
              * @param string $file

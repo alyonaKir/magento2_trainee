@@ -11,7 +11,7 @@ namespace Magento\Test\Integrity\Magento\Widget;
 class TemplateFilesTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * Check if all the declared widget templates actually exist
+     * Check if all the declared widget template actually exist
      *
      * @param string $class
      * @param string $template
@@ -31,7 +31,7 @@ class TemplateFilesTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * Collect all declared widget blocks and templates
+     * Collect all declared widget blocks and template
      *
      * @return array
      */

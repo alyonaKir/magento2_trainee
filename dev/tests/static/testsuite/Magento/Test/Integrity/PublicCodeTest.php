@@ -55,7 +55,7 @@ class PublicCodeTest extends TestCase
     }
 
     /**
-     * Since blocks can be referenced from templates, they should be stable not to break theme customizations.
+     * Since blocks can be referenced from template, they should be stable not to break theme customizations.
      * So all blocks should be @api annotated. This test checks that all blocks declared in layout files are public
      *
      * @param $layoutFile

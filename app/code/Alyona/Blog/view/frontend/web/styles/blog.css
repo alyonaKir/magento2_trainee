@@ -1,0 +1,27 @@
+.blog-container ul{
+    margin: 0;
+    padding: 0;
+    list-style: none none;
+}
+.blog-container .post-container{
+    border: 1px solid #ccc;
+}
+
+.blog-container .post-container .post-container__content{
+    padding: 20px;
+}
+
+.blog-container .post-container .post-image{
+    min-height: 200px;
+    background-color: #ccc;
+}
+
+.blog-container .post-container .post-container__content .post-meta{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 0 0 10px 0;
+}
+.blog-container .post-container .post-container__content .post-meta .column1{
+    min-width: 80%;
+}
