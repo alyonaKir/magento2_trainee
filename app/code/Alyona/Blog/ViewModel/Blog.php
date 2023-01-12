@@ -36,35 +36,15 @@ class Blog implements ArgumentInterface
         $posts = $this->postRepository->get();
         $result = [];
 
-//      $asd = $posts->getItems();
-//      $result[] = [
-//                "id" => $posts[0]->getId(),
-//                "title" =>$post->getTitle(),
-//                "url"=>$this->url->getUrl($post->getIdentifier()),
-//                "content"=>$post->getContent(),
-//                "updatedAt"=>$post->getUpdateTime()
-//            ];
-//        /**
-//         * @var PageInterface $post
-//         */
         foreach ($posts->getItems() as $post){
             $result[] =[
                 "id" => $post->getId(),
                 "title" =>$post->getTitle(),
                 "url"=>$this->url->getUrl($post->getIdentifier()),
-                "content"=>$post->getContent(),
+                "content"=>strip_tags($post->getContent()),
                 "updatedAt"=>$post->getUpdateTime()
             ];
         }
-
-//        $result[] =  [
-//                "id" => 1,
-//                "title" =>"First Post",
-//                "url"=>"https://app.exampleproject.test/blog/first",
-//                "content"=>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nibh venenatis cras sed felis eget velit aliquet sagittis.",
-//                "tags"=> ["cat", "dog"],
-//                "updatedAt"=>"2010-10-02"
-//            ];
         return $this->serializer->serialize($result);
 
     }
