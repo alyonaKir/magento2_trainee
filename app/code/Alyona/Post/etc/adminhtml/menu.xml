@@ -7,10 +7,10 @@
              sortOrder="51"
              resource="Magento_Backend::content"/>
         <add id="Alyona_Post::post"
-             title="Posts"
+             title="Post"
              module="Alyona_Post"
              sortOrder="1"
-             action="post/index/index"
+             action="alyona_post/post"
              parent="Alyona_Post::module"
              resource="Magento_Backend::content"/>
     </menu>

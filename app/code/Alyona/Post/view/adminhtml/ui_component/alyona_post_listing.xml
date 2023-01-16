@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">alyona_post_listing.alyona_post_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <buttons>
+            <button name="add">
+                <url path="*/*/new"></url>
+                <class>primary</class>
+                <label translate="true">Add New</label>
+            </button>
+        </buttons>
+        <spinner>post_columns</spinner>
+        <deps>
+            <dep>alyona_post_listing.alyona_post_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="alyona_post_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <updateUrl path="mui/index/render"></updateUrl>
+        </settings>
+        <aclResource>Magento_Backend::content</aclResource>
+        <dataProvider class="Alyona\Post\Ui\DataProvider\Post\ListingDataProvider" name="alyona_post_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>post_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <filters>
+            <filterSelect name="store_id" provider="${ $.parentName }">
+                <settings>
+                    <options class="Magento\Store\Ui\Component\Listing\Column\Store\Options"/>
+                    <caption translate="true">All store views</caption>
+                    <label translate="true">Store view</label>
+                    <dataScope>store_id</dataScope>
+                </settings>
+            </filterSelect>
+        </filters>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+    <columns name="post_columns">
+        <column name="post_id" sortOrder="20">
+            <settings>
+                <filter>text</filter>
+                <dataType>text</dataType>
+                <label translate="true">ID</label>
+            </settings>
+        </column>
+        <column name="title" sortOrder="20">
+            <settings>
+                <filter>text</filter>
+                <dataType>text</dataType>
+                <label translate="true">Title</label>
+            </settings>
+        </column>
+        <column name="created_at" sortOrder="20">
+            <settings>
+                <filter>text</filter>
+                <dataType>text</dataType>
+                <label translate="true">Created At</label>
+            </settings>
+        </column>
+        <column name="updated_at" sortOrder="20">
+            <settings>
+                <filter>text</filter>
+                <dataType>text</dataType>
+                <label translate="true">Updated At</label>
+            </settings>
+        </column>
+        <actionsColumn name="actions" class="Alyona\Post\Ui\Component\Listing\Columns\PostActions" sortOrder="200">
+            <settings>
+                <indexField>post_id</indexField>
+            </settings>
+        </actionsColumn>
+    </columns>
+</listing>
