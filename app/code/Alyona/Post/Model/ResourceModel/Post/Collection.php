@@ -8,8 +8,14 @@ use Alyona\Post\Model\ResourceModel\Post as PostResource;
 
 class Collection extends AbstractCollection
 {
+    /**
+     * @var string
+     */
+    protected $_idFieldName = 'post_id';
+
     protected function _construct()
     {
-       $this->_init(Post::class, PostResource::class);
+        $this->_init(Post::class, PostResource::class);
     }
+
 }

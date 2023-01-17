@@ -7,7 +7,10 @@ use Magento\Framework\Model\AbstractModel;
 
 class Post extends AbstractModel implements PostInterface
 {
-
+    protected function _construct()
+    {
+        $this->_init('Alyona\Post\Model\ResourceModel\Post');
+    }
     public function getId(): int
     {
         return $this->getData(PostInterface::ID);
@@ -36,6 +39,11 @@ class Post extends AbstractModel implements PostInterface
     public function setTitle($title)
     {
         $this->setData(PostInterface::TITLE, $title);
+    }
+
+    public function setId($id)
+    {
+        $this->setData(PostInterface::ID, $id);
     }
 
     public function setContent($content)

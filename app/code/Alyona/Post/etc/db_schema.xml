@@ -1,12 +1,9 @@
 <?xml version="1.0"?>
 <schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
-    <table name="alyona_posts" resource="default" engine="innodb" comment="Posts">
+    <table name="alyona_post" resource="default" engine="innodb" comment="Posts">
         <column xsi:type="int" name="post_id" unsigned="true" nullable="false" identity="true"
-                comment="Entity ID"/>
-        <column xsi:type="smallint" name="attribute_set_id" unsigned="true" nullable="false"
-                identity="false" default="0" comment="Attribute Set ID"/>
-
+                comment="Post ID"/>
         <column xsi:type="varchar" name="title" nullable="false" length="128" comment="Title"/>
 
         <column xsi:type="text" name="content" nullable="false" comment="Content"/>
@@ -15,13 +12,8 @@
                 comment="Creation Time"/>
         <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
                 comment="Update Time"/>
-
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="post_id"/>
         </constraint>
-
-        <index referenceId="CATALOG_PRODUCT_ENTITY_ATTRIBUTE_SET_ID" indexType="btree">
-            <column name="attribute_set_id"/>
-        </index>
     </table>
 </schema>

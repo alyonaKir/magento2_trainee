@@ -9,6 +9,7 @@ use Alyona\Post\Model\ResourceModel\Post as PostResource;
 use Alyona\Post\Model\ResourceModel\Post\CollectionFactory;
 use Alyona\Post\Api\PostSearchResultInterfaceFactory;
 use Magento\Framework\Api\SearchCriteriaInterface;
+use Magento\Framework\Exception\AlreadyExistsException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Exception\StateException;
 use Magento\Setup\Exception;
@@ -26,12 +27,12 @@ class PostRepository implements PostRepositoryInterface
      * @param \Alyona\Post\Model\PostFactory $postFactory
      * @param PostSearchResultInterfaceFactory $searchResultFactory
      */
-    public function __construct(CollectionFactory $collectionFactory, PostResource $postResource, \Alyona\Post\Model\PostFactory $postFactory, PostSearchResultFactory $searchResultFactory)
+    public function __construct(CollectionFactory $collectionFactory, PostResource $postResource, \Alyona\Post\Model\PostFactory $postFactory, PostSearchResultInterfaceFactory $searchResultInterfaceFactory)
     {
         $this->collectionFactory = $collectionFactory;
         $this->postResource = $postResource;
         $this->postFactory = $postFactory;
-        $this->searchResultFactory = $searchResultFactory;
+        $this->searchResultInterfaceFactory = $searchResultInterfaceFactory;
     }
 
     public function get(int $id): PostInterface
@@ -39,7 +40,7 @@ class PostRepository implements PostRepositoryInterface
         $object = $this->postFactory->create();
         $this->postResource->load($object, $id);
         if(!$object->getId()){
-            throw new NoSuchEntityException(__("No id "%1, $id));
+            throw new NoSuchEntityException(__('No id "%1"', $id));
         }
         return $object;
     }
@@ -59,6 +60,9 @@ class PostRepository implements PostRepositoryInterface
         return $searchResult;
     }
 
+    /**
+     * @throws AlreadyExistsException
+     */
     public function save(PostInterface $post): PostInterface
     {
         $this->postResource->save($post);
@@ -70,7 +74,7 @@ class PostRepository implements PostRepositoryInterface
         try {
             $this->postResource->delete($workingHours);
         } catch (Exception $e){
-            throw new StateException(__("Unable to remove entity "%1, $workingHours->getId()));
+            throw new StateException(__('Unable to remove entity "%1"', $workingHours->getId()));
         }
         return true;
     }

@@ -9,7 +9,7 @@ use Magento\Framework\Model\ResourceModel\Db\Context;
 
 class Post extends AbstractDb
 {
-    public const TABLE_NAME = 'alyona_posts';
+    public const TABLE_NAME = 'alyona_post';
 
     public function __construct(Context $context)
     {
@@ -18,7 +18,7 @@ class Post extends AbstractDb
 
     protected function _construct()
     {
-        $this->_init(self::TABLE_NAME, PostInterface::ID);
+        $this->_init('alyona_post', 'post_id');
     }
 
 }

@@ -8,7 +8,7 @@
     <settings>
         <buttons>
             <button name="add">
-                <url path="*/*/new"></url>
+                <url path="*/*/create"/>
                 <class>primary</class>
                 <label translate="true">Add New</label>
             </button>
@@ -20,7 +20,7 @@
     </settings>
     <dataSource name="alyona_post_data_source" component="Magento_Ui/js/grid/provider">
         <settings>
-            <updateUrl path="mui/index/render"></updateUrl>
+            <updateUrl path="mui/index/render"/>
         </settings>
         <aclResource>Magento_Backend::content</aclResource>
         <dataProvider class="Alyona\Post\Ui\DataProvider\Post\ListingDataProvider" name="alyona_post_data_source">
