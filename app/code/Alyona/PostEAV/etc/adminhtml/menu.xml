@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Alyona_PostEAV::module"
+             title="Blog"
+             module="Alyona_PostEAV"
+             sortOrder="1"
+             resource="Magento_Backend::content"/>
+        <add id="Alyona_PostEAV::post"
+             title="Post"
+             module="Alyona_PostEAV"
+             sortOrder="1"
+             action="posteav/post"
+             parent="Alyona_PostEAV::module"
+             resource="Magento_Backend::content"/>
+    </menu>
+</config>
