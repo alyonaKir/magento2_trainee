@@ -34,7 +34,8 @@ class Save extends \Magento\Backend\App\Action
         $_publicActions = ['save'];
         $resultRedirect = $this->resultRedirectFactory->create();
         $data = $this->getRequest()->getPostValue();
-        $urlKey = $this->urlBuilder->getRouteUrl('posteav/post/edit', [ 'key'=>$this->urlBuilder->getSecretKey('posteav', 'post', 'edit')]);
+        $urlKey = $data['post_fieldset']['title'];
+        //$urlKey = $this->urlBuilder->getRouteUrl('posteav/post/edit', [ 'key'=>$this->urlBuilder->getSecretKey('posteav', 'post', 'edit')]);
         //$urlKey = $this->_objectManager->create('Magento\Catalog\Model\Product\Url')->formatUrlKey($data['url_key']);
         try {
             $id = $_SESSION['id'];
@@ -45,7 +46,8 @@ class Save extends \Magento\Backend\App\Action
                 $postdata = [
                     'title' => $data['post_fieldset']['title'],
                     'url_key' => $urlKey,
-                    'content' => $data['post_fieldset']['content'],
+                    'post_content' => $data['post_fieldset']['post_content'],
+                    'tags' => $data['post_fieldset']['tags'],
                     'status' => $data['post_fieldset']['status'],
                     'updated_at' => $date
                 ];
@@ -55,7 +57,8 @@ class Save extends \Magento\Backend\App\Action
                 $postdata = [
                     'title' => $data['post_fieldset']['title'],
                     'url_key' => $urlKey,
-                    'content' => $data['post_fieldset']['content'],
+                    'post_content' => $data['post_fieldset']['post_content'],
+                    'tags' => $data['post_fieldset']['tags'],
                     'status' => $data['post_fieldset']['status'],
                     'created_at' => $date,
                     'updated_at' => $date
@@ -64,6 +67,7 @@ class Save extends \Magento\Backend\App\Action
                 $objectManager->save();
                 $this->messageManager->addSuccessMessage(__('The Post has been saved.'));
             }
+            $_SESSION['id'] = null;
         } catch (\Exception $e) {
             $this->messageManager->addErrorMessage(nl2br($e->getMessage()));
             return $resultRedirect->setPath('*/*/edit');
