@@ -9,7 +9,7 @@ class Save extends Generic implements ButtonProviderInterface
     public function getButtonData()
     {
         return [
-            'label' => __('Save Post'),
+            'label' => __('Save'),
             'class' => 'save primary',
             'data_attribute' => [
                 'mage-init' => ['button' => ['event' => 'save']],

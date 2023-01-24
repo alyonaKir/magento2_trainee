@@ -17,6 +17,6 @@ class Collection extends AbstractCollection
      */
     protected function _construct(): void
     {
-        $this->_init('Alyona\PostEAV\Model\Post', 'Alyona\PostEAV\Model\ResourceModel\Post');
+        $this->_init('Alyona\PostEAV\Model\Post', 'Alyona\PostEAV\Model\ResourceModel\Post\Post');
     }
 }

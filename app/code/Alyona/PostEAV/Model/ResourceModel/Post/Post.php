@@ -1,6 +1,6 @@
 <?php
 
-namespace Alyona\PostEAV\Model\ResourceModel;
+namespace Alyona\PostEAV\Model\ResourceModel\Post;
 
 use Magento\Framework\Model\ResourceModel\Db\Context;
 

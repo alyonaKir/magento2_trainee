@@ -159,6 +159,44 @@ class UpgradeSchema implements UpgradeSchemaInterface
                 \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_FULLTEXT
             );
         }
+
+        if (!$installer->tableExists('alyona_posteav_tags')) {
+            $table = $installer->getConnection()->newTable(
+                $installer->getTable('alyona_posteav_tags')
+            )
+                ->addColumn(
+                    'tag_id',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+                    null,
+                    [
+                        'identity' => true,
+                        'nullable' => false,
+                        'primary' => true,
+                        'unsigned' => true,
+                    ],
+                    'Category ID'
+                )
+                ->addColumn(
+                    'name',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+                    255,
+                    ['nullable => false'],
+                    'Tag name'
+                )
+                ->setComment('Tags Table');
+            $installer->getConnection()->createTable($table);
+
+            $installer->getConnection()->addIndex(
+                $installer->getTable('alyona_posteav_tags'),
+                $setup->getIdxName(
+                    $installer->getTable('alyona_posteav_tags'),
+                    ['name'],
+                    \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_FULLTEXT
+                ),
+                ['name'],
+                \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_FULLTEXT
+            );
+        }
         $installer->endSetup();
     }
 }

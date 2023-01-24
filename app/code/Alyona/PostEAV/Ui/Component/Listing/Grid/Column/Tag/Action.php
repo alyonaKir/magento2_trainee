@@ -1,16 +1,15 @@
 <?php
 
-namespace Alyona\PostEAV\Ui\Component\Listing\Grid\Column;
+namespace Alyona\PostEAV\Ui\Component\Listing\Grid\Column\Tag;
 
 use Magento\Framework\UrlInterface;
 use Magento\Framework\View\Element\UiComponent\ContextInterface;
 use Magento\Framework\View\Element\UiComponentFactory;
 use Magento\Ui\Component\Listing\Columns\Column;
-
 class Action extends Column
 {
     /** Url path */
-    const ROW_EDIT_URL = 'posteav/post/edit';
+    const ROW_EDIT_URL = 'posteav/tag/edit';
     /** @var UrlInterface */
     protected $_urlBuilder;
 
@@ -49,37 +48,22 @@ class Action extends Column
      */
     public function prepareDataSource(array $dataSource)
     {
-//        if (isset($dataSource['data']['items'])) {
-//            foreach ($dataSource['data']['items'] as &$item) {
-//                $name = $this->getData('name');
-//                if (isset($item['post_id'])) {
-//                    $item[$name]['edit'] = [
-//                        'href' => $this->_urlBuilder->getUrl(
-//                            $this->_editUrl,
-//                            ['id' => $item['post_id']]
-//                        ),
-//                        'label' => __('Edit'),
-//                    ];
-//                }
-//            }
-//        }
-
         if (isset($dataSource['data']['items'])) {
             foreach ($dataSource['data']['items'] as & $item) {
                 $name = $this->getData('name');
-                if (isset($item['post_id'])) {
+                if (isset($item['tag_id'])) {
                     $item[$name] = [
                         'edit' => [
                             'href' => $this->_urlBuilder->getUrl(
                                 $this->_editUrl,
-                                ['id' => $item['post_id']]
+                                ['id' => $item['tag_id']]
                             ),
                             'label' => __('Edit')
                         ],
                         'delete' => [
                             'href' => $this->_urlBuilder->getUrl(
-                                'posteav/post/delete',
-                                ['id' => $item['post_id']]
+                                'posteav/tag/delete',
+                                ['id' => $item['tag_id']]
                             ),
                             'label' => __('Delete')
                         ]

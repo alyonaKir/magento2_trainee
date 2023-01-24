@@ -35,6 +35,12 @@ class Save extends \Magento\Backend\App\Action
         $resultRedirect = $this->resultRedirectFactory->create();
         $data = $this->getRequest()->getPostValue();
         $urlKey = $data['post_fieldset']['title'];
+        $tags_string = "";
+        if($data['post_fieldset']['tags']) {
+            foreach ($data['post_fieldset']['tags'] as $tag) {
+                $tags_string .= $tag . " ";
+            }
+        }
         //$urlKey = $this->urlBuilder->getRouteUrl('posteav/post/edit', [ 'key'=>$this->urlBuilder->getSecretKey('posteav', 'post', 'edit')]);
         //$urlKey = $this->_objectManager->create('Magento\Catalog\Model\Product\Url')->formatUrlKey($data['url_key']);
         try {
@@ -47,7 +53,7 @@ class Save extends \Magento\Backend\App\Action
                     'title' => $data['post_fieldset']['title'],
                     'url_key' => $urlKey,
                     'post_content' => $data['post_fieldset']['post_content'],
-                    'tags' => $data['post_fieldset']['tags'],
+                    'tags' => $tags_string,
                     'status' => $data['post_fieldset']['status'],
                     'updated_at' => $date
                 ];
@@ -58,7 +64,7 @@ class Save extends \Magento\Backend\App\Action
                     'title' => $data['post_fieldset']['title'],
                     'url_key' => $urlKey,
                     'post_content' => $data['post_fieldset']['post_content'],
-                    'tags' => $data['post_fieldset']['tags'],
+                    'tags' => $tags_string,
                     'status' => $data['post_fieldset']['status'],
                     'created_at' => $date,
                     'updated_at' => $date

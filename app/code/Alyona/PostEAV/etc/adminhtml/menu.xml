@@ -7,10 +7,24 @@
              sortOrder="1"
              resource="Magento_Backend::content"/>
         <add id="Alyona_PostEAV::post"
-             title="Post"
+             title="Posts"
              module="Alyona_PostEAV"
              sortOrder="1"
              action="posteav/post"
+             parent="Alyona_PostEAV::module"
+             resource="Magento_Backend::content"/>
+        <add id="Alyona_PostEAV::tag"
+             title="Tags"
+             module="Alyona_PostEAV"
+             sortOrder="1"
+             action="posteav/tag"
+             parent="Alyona_PostEAV::module"
+             resource="Magento_Backend::content"/>
+        <add id="Alyona_PostEAV::category"
+             title="Categories"
+             module="Alyona_PostEAV"
+             sortOrder="1"
+             action="posteav/category"
              parent="Alyona_PostEAV::module"
              resource="Magento_Backend::content"/>
     </menu>

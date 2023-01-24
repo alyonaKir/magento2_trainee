@@ -2,7 +2,7 @@
 
 namespace Alyona\PostEAV\Model;
 
-class Post extends \Magento\Framework\Model\AbstractModel implements \Magento\Framework\DataObject\IdentityInterface
+class Tag extends \Magento\Framework\Model\AbstractModel implements \Magento\Framework\DataObject\IdentityInterface
 {
     const CACHE_TAG = 'alyona_posteav';
 
@@ -12,7 +12,7 @@ class Post extends \Magento\Framework\Model\AbstractModel implements \Magento\Fr
 
     protected function _construct()
     {
-        $this->_init('Alyona\PostEAV\Model\ResourceModel\Post\Post');
+        $this->_init('Alyona\PostEAV\Model\ResourceModel\Tag\Tag');
     }
 
     public function getIdentities()
@@ -29,6 +29,6 @@ class Post extends \Magento\Framework\Model\AbstractModel implements \Magento\Fr
 
     public function getId()
     {
-        return $this->getData('post_id');
+        return $this->getData('tag_id');
     }
 }
