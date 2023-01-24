@@ -19,4 +19,5 @@ class Collection extends AbstractCollection
     {
         $this->_init('Alyona\PostEAV\Model\Post', 'Alyona\PostEAV\Model\ResourceModel\Post\Post');
     }
+
 }

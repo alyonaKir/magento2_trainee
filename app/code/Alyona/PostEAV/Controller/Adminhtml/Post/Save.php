@@ -35,16 +35,16 @@ class Save extends \Magento\Backend\App\Action
         $resultRedirect = $this->resultRedirectFactory->create();
         $data = $this->getRequest()->getPostValue();
         $urlKey = $data['post_fieldset']['title'];
-        $tags_string = "";
-        if($data['post_fieldset']['tags']) {
-            foreach ($data['post_fieldset']['tags'] as $tag) {
-                $tags_string .= $tag . " ";
-            }
+        $tags_string ="";
+        if ($data['post_fieldset']['tags']) {
+            $tags_string = implode(',', $data['post_fieldset']['tags']);
         }
         //$urlKey = $this->urlBuilder->getRouteUrl('posteav/post/edit', [ 'key'=>$this->urlBuilder->getSecretKey('posteav', 'post', 'edit')]);
         //$urlKey = $this->_objectManager->create('Magento\Catalog\Model\Product\Url')->formatUrlKey($data['url_key']);
         try {
-            $id = $_SESSION['id'];
+            if (isset($_SESSION['id'])) {
+                $id = $_SESSION['id'];
+            }
             //$id = (int)$this->getRequest()->getParam('id');
             $date = $this->date->gmtDate();
             $objectManager = $this->_objectManager->create('Alyona\PostEAV\Model\Post');
@@ -53,7 +53,8 @@ class Save extends \Magento\Backend\App\Action
                     'title' => $data['post_fieldset']['title'],
                     'url_key' => $urlKey,
                     'post_content' => $data['post_fieldset']['post_content'],
-                    'tags' => $tags_string,
+                    'tags' =>   $tags_string,
+                    'category_id' => $data['post_fieldset']['category_id'],
                     'status' => $data['post_fieldset']['status'],
                     'updated_at' => $date
                 ];
@@ -64,7 +65,8 @@ class Save extends \Magento\Backend\App\Action
                     'title' => $data['post_fieldset']['title'],
                     'url_key' => $urlKey,
                     'post_content' => $data['post_fieldset']['post_content'],
-                    'tags' => $tags_string,
+                    'tags' =>  $tags_string,
+                    'category_id' => $data['post_fieldset']['category_id'],
                     'status' => $data['post_fieldset']['status'],
                     'created_at' => $date,
                     'updated_at' => $date

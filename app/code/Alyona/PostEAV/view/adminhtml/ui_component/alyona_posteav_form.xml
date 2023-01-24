@@ -83,27 +83,60 @@
             </argument>
         </field>
 
-        <field name="tags" formElement="multiselect">
+<!--        <field name="tags" formElement="multiselect">-->
+<!--            <settings>-->
+<!--                <dataType>multiselect</dataType>-->
+<!--                <label translate="true">Tags</label>-->
+<!--                <dataScope>tags</dataScope>-->
+<!--            </settings>-->
+<!--            <formElements>-->
+<!--                <multiselect>-->
+<!--                    <settings>-->
+<!--                        <options class="Alyona\PostEAV\Model\Config\Source\Tags"/>-->
+<!--                    </settings>-->
+<!--                </multiselect>-->
+<!--            </formElements>-->
+<!--        </field>-->
+
+        <field name="tags">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Alyona\PostEAV\Model\Config\Source\Tags</item>
+                <item name="config" xsi:type="array">
+                    <item name="additionalClasses" xsi:type="string">required</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Tags</item>
+                    <item name="componentType" xsi:type="string">field</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/form/element/ui-select</item>
+                    <item name="elementTmpl" xsi:type="string">ui/grid/filters/elements/ui-select</item>
+                    <item name="dataScope" xsi:type="string">tags</item>
+                    <item name="filterOptions" xsi:type="boolean">true</item>
+                    <item name="showCheckbox" xsi:type="boolean">true</item>
+                    <item name="disableLabel" xsi:type="boolean">true</item>
+                    <item name="multiple" xsi:type="boolean">true</item>
+                    <item name="levelsVisibility" xsi:type="number">1</item>
+                    <item name="sortOrder" xsi:type="number">70</item>
+                    <item name="required" xsi:type="boolean">true</item>
+                    <item name="listens" xsi:type="array">
+                        <item name="${ $.namespace }.${ $.namespace }:responseData" xsi:type="string">setParsed</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+
+
+        <field name="category_id" formElement="select">
             <settings>
-                <dataType>text</dataType>
-                <label translate="true">Tags</label>
-                <dataScope>tags</dataScope>
+                <dataType>select</dataType>
+                <label translate="true">Category</label>
+                <dataScope>category_id</dataScope>
             </settings>
             <formElements>
-                <multiselect>
+                <select>
                     <settings>
-                        <options>
-                            <option name="1" xsi:type="array">
-                                <item name="value" xsi:type="string">1</item>
-                                <item name="label" xsi:type="string">tags</item>
-                            </option>
-                            <option name="2" xsi:type="array">
-                                <item name="value" xsi:type="string">2</item>
-                                <item name="label" xsi:type="string">nature</item>
-                            </option>
-                        </options>
+                        <options class="Alyona\PostEAV\Model\Config\Source\Category"/>
                     </settings>
-                </multiselect>
+                </select>
             </formElements>
         </field>
 

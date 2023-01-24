@@ -34,11 +34,14 @@ class Save extends \Magento\Backend\App\Action
         $_publicActions = ['save'];
         $resultRedirect = $this->resultRedirectFactory->create();
         $data = $this->getRequest()->getPostValue();
+        $id="";
         $urlKey = $data['category_fieldset']['name'];
         //$urlKey = $this->urlBuilder->getRouteUrl('posteav/post/edit', [ 'key'=>$this->urlBuilder->getSecretKey('posteav', 'post', 'edit')]);
         //$urlKey = $this->_objectManager->create('Magento\Catalog\Model\Product\Url')->formatUrlKey($data['url_key']);
         try {
-            $id = $_SESSION['category_id'];
+            if (isset($_SESSION['category_id'])) {
+                $id = $_SESSION['category_id'];
+            }
             //$id = (int)$this->getRequest()->getParam('id');
             $date = $this->date->gmtDate();
             $objectManager = $this->_objectManager->create('Alyona\PostEAV\Model\Category');

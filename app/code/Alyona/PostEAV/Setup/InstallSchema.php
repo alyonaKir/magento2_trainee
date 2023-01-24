@@ -8,7 +8,7 @@ class InstallSchema implements \Magento\Framework\Setup\InstallSchemaInterface
         $installer = $setup;
         $installer->startSetup();
 
-        if (version_compare($context->getVersion(), '1.3.0', '<')) {
+        if (version_compare($context->getVersion(), '1.5.0', '<')) {
             if (!$installer->tableExists('alyona_posteav')) {
                 $table = $installer->getConnection()->newTable(
                     $installer->getTable('alyona_posteav')
@@ -52,6 +52,13 @@ class InstallSchema implements \Magento\Framework\Setup\InstallSchemaInterface
                         255,
                         [],
                         'Post Tags'
+                    )
+                    ->addColumn(
+                        'category_id',
+                        \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+                        1,
+                        [],
+                        'Post Category'
                     )
                     ->addColumn(
                         'status',

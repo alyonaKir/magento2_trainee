@@ -11,10 +11,9 @@ class UpgradeSchema implements UpgradeSchemaInterface
     public function upgrade(SchemaSetupInterface $setup, ModuleContextInterface $context)
     {
         $installer = $setup;
-
         $installer->startSetup();
 
-        if (version_compare($context->getVersion(), '1.1.0', '<')) {
+        if (version_compare($context->getVersion(), '1.5.0', '<')) {
             if (!$installer->tableExists('alyona_posteav')) {
                 $table = $installer->getConnection()->newTable(
                     $installer->getTable('alyona_posteav')
@@ -58,6 +57,13 @@ class UpgradeSchema implements UpgradeSchemaInterface
                         255,
                         [],
                         'Post Tags'
+                    )
+                    ->addColumn(
+                        'category_id',
+                        \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+                        1,
+                        [],
+                        'Post Category'
                     )
                     ->addColumn(
                         'status',

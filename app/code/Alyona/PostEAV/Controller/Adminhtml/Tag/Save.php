@@ -35,7 +35,7 @@ class Save extends \Magento\Backend\App\Action
         $resultRedirect = $this->resultRedirectFactory->create();
         $data = $this->getRequest()->getPostValue();
         try {
-            $id = $_SESSION['tag_id'];
+            if(isset($_SESSION['tag_id'])) $id = $_SESSION['tag_id'];
             $date = $this->date->gmtDate();
             $objectManager = $this->_objectManager->create('Alyona\PostEAV\Model\Tag');
             if ($id) {
