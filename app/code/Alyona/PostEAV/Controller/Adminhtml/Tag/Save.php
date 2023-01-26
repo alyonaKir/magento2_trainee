@@ -34,6 +34,7 @@ class Save extends \Magento\Backend\App\Action
         $_publicActions = ['save'];
         $resultRedirect = $this->resultRedirectFactory->create();
         $data = $this->getRequest()->getPostValue();
+        $id ="";
         try {
             if(isset($_SESSION['tag_id'])) $id = $_SESSION['tag_id'];
             $date = $this->date->gmtDate();

@@ -2,7 +2,9 @@
 
 namespace Alyona\PostEAV\Model;
 
-class Post extends \Magento\Framework\Model\AbstractModel implements \Magento\Framework\DataObject\IdentityInterface
+use Alyona\PostEAV\Api\Data\PostInterface;
+
+class Post extends \Magento\Framework\Model\AbstractModel implements \Magento\Framework\DataObject\IdentityInterface, PostInterface
 {
     const CACHE_TAG = 'alyona_posteav';
 

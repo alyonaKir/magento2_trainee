@@ -36,8 +36,13 @@ class Save extends \Magento\Backend\App\Action
         $data = $this->getRequest()->getPostValue();
         $urlKey = $data['post_fieldset']['title'];
         $tags_string ="";
-        if ($data['post_fieldset']['tags']) {
+        $category_string="";
+        $id = null;
+        if (isset($data['post_fieldset']['tags'])) {
             $tags_string = implode(',', $data['post_fieldset']['tags']);
+        }
+        if (isset($data['post_fieldset']['category_id'])) {
+            $category_string = implode(',', $data['post_fieldset']['category_id']);
         }
         //$urlKey = $this->urlBuilder->getRouteUrl('posteav/post/edit', [ 'key'=>$this->urlBuilder->getSecretKey('posteav', 'post', 'edit')]);
         //$urlKey = $this->_objectManager->create('Magento\Catalog\Model\Product\Url')->formatUrlKey($data['url_key']);
@@ -54,7 +59,7 @@ class Save extends \Magento\Backend\App\Action
                     'url_key' => $urlKey,
                     'post_content' => $data['post_fieldset']['post_content'],
                     'tags' =>   $tags_string,
-                    'category_id' => $data['post_fieldset']['category_id'],
+                    'category_id' => $category_string,
                     'status' => $data['post_fieldset']['status'],
                     'updated_at' => $date
                 ];
@@ -66,7 +71,7 @@ class Save extends \Magento\Backend\App\Action
                     'url_key' => $urlKey,
                     'post_content' => $data['post_fieldset']['post_content'],
                     'tags' =>  $tags_string,
-                    'category_id' => $data['post_fieldset']['category_id'],
+                    'category_id' => $category_string,
                     'status' => $data['post_fieldset']['status'],
                     'created_at' => $date,
                     'updated_at' => $date
