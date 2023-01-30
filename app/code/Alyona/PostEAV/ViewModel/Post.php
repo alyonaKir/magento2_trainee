@@ -40,23 +40,41 @@ class Post implements ArgumentInterface
 
     public function getPosts(): string
     {
-        $data = $this->_collectionFactory->create();
 
-        foreach ($data as $value => $label) {
-            $result[] = [
-                "id" => $label['post_id'],
-                "title" => $label['title'],
-                "url" => $label['url_key'],
-                "tags" => $this->getTags($label['tags']),
-                "content" => mb_strimwidth($label['post_content'], 0, 255)."...",
-                "updatedAt" => $label['updated_at']
+        $posts = $this->postRepository->get();
+        $result = [];
+
+        foreach ($posts->getItems() as $post) {
+            $result[] =[
+                "id" => $post->getId(),
+                "title" => $post->getTitle(),
+                "url" => $post->getUrlKey(),
+                "tags" => $this->getTags($post->getTags()),
+                "content" => mb_strimwidth($post->getPostContent(), 0, 255) . "...",
+                "updatedAt" => $post->getUpdatedAt()
             ];
         }
         return $this->serializer->serialize($result);
     }
 
+    public function getPostInfo($id): string
+    {
+        $post = $this->postRepository->getById($id);
+
+        $result =[
+            "id" => $post->getId(),
+            "title" => $post->getTitle(),
+            "tags" => $post->getTags(),
+            "content" => $post->getPostContent(),
+            "updatedAt" => $post->getUpdatedAt()
+        ];
+        return $this->serializer->serialize($result);
+    }
+
     public function getTags($tags): array
     {
+        //return $this->serializer->serialize($result);
+
         $tags_arr = explode(',', $tags);
         $result =[];
         $i=0;

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Alyona_PostEAV::styles/post.css"/>
+        <title>Blog</title>
+    </head>
+    <body>
+        <referenceContainer name="logo" remove="true" />
+        <referenceBlock name="page.main.title">
+            <action method="setPageTitle">
+                <argument name="title" xsi:type="string">Post</argument>
+            </action>
+        </referenceBlock>
+
+        <referenceBlock name="content">
+            <block name="alyona_blog_post"
+                   class="Magento\Framework\View\Element\Template"
+                   template="Alyona_PostEAV::post.phtml">
+                <arguments>
+                    <argument name="viewModel" xsi:type="object">Alyona\PostEAV\ViewModel\Post</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

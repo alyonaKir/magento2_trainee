@@ -1,0 +1,15 @@
+<div class="post-container">
+    <li class="post-container" data-bind="attr: {id: posts.id}">
+        <div class="post-container__content">
+            <h2 data-bind="text: posts.title"></h2>
+            <div class="post-meta">
+                <div class="column1">
+                    tags:
+                    <span data-bind="text: posts.tags"> </span>
+                </div>
+                <!--            <div class="column2" data-bind="text: $parent.getDate(post.updatedAt)"></div>-->
+            </div>
+            <p data-bind="text: posts.content"></p>
+        </div>
+    </li>
+</div>

@@ -4,24 +4,23 @@ namespace Alyona\PostEAV\Model;
 
 use Alyona\PostEAV\Api\Data\PostInterface;
 use Alyona\PostEAV\Api\PostRepositoryInterface;
+use Alyona\PostEAV\Model\PostSearchResultFactory;
 use Alyona\PostEAV\Api\PostSearchResultInterface;
 use Alyona\PostEAV\Model\ResourceModel\Post\Grid\CollectionFactory;
 use Alyona\PostEAV\Model\ResourceModel\Post\Post as PostResource;
-use Alyona\PostEAV\Model\PostFactory;
-use Alyona\PostEAV\Api\PostSearchResultInterfaceFactory;
-use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Framework\Api\SearchCriteriaBuilder;
+use Magento\Framework\Api\SearchCriteriaInterface;
+use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Exception\StateException;
-
 
 class PostRepository implements PostRepositoryInterface
 {
     private CollectionFactory $collectionFactory;
     private PostResource $postResource;
     private PostFactory $postFactory;
-    private PostSearchResultInterfaceFactory $searchResultInterfaceFactory;
     private SearchCriteriaBuilder $searchCriteriaBuilder;
+    private PostSearchResultFactory $searchResultFactory;
 
     /**
      * @param PostFactory $postFactory
@@ -34,18 +33,17 @@ class PostRepository implements PostRepositoryInterface
         PostFactory $postFactory,
         CollectionFactory $collectionFactory,
         PostResource  $postResource,
-        PostSearchResultInterfaceFactory $searchResultInterfaceFactory,
+        PostSearchResultFactory $searchResultFactory,
         SearchCriteriaBuilder $searchCriteriaBuilder
     ) {
         $this->postFactory = $postFactory;
         $this->collectionFactory = $collectionFactory;
         $this->postResource = $postResource;
-        $this->searchResultFactory = $searchResultInterfaceFactory;
+        $this->searchResultFactory = $searchResultFactory;
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
     }
 
-
-    public function get(int $id): PostInterface
+    public function getById(int $id): PostInterface
     {
         $object = $this->postFactory->create();
         $this->postResource->load($object, $id);
@@ -53,9 +51,16 @@ class PostRepository implements PostRepositoryInterface
             throw new NoSuchEntityException(__('Unable to find entity with ID "%1"', $id));
         }
         return $object;
-
     }
 
+    /**
+     * @throws LocalizedException
+     */
+    public function get()
+    {
+        $searchCriteria = $this->searchCriteriaBuilder->create();
+        return $this->getList($searchCriteria);
+    }
     public function getList(SearchCriteriaInterface $searchCriteria = null): PostSearchResultInterface
     {
         $collection = $this->collectionFactory->create();
@@ -77,14 +82,12 @@ class PostRepository implements PostRepositoryInterface
         $searchResult->setTotalCount($collection->getSize());
         $searchResult->setSearchCriteria($searchCriteria);
         return $searchResult;
-
     }
 
     public function save(PostInterface $post): PostInterface
     {
         $this->postResource->save($post);
         return $post;
-
     }
 
     public function delete(PostInterface $post): bool
@@ -95,11 +98,10 @@ class PostRepository implements PostRepositoryInterface
             throw new StateException(__('Unable to remove entity #%1', $post->getId()));
         }
         return true;
-
     }
 
     public function deleteById(int $id): bool
     {
-        return $this->delete($this->get($id));
+        return $this->delete($this->getById($id));
     }
 }

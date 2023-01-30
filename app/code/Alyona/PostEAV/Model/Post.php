@@ -31,6 +31,86 @@ class Post extends \Magento\Framework\Model\AbstractModel implements \Magento\Fr
 
     public function getId()
     {
-        return $this->getData('post_id');
+        return $this->getData(PostInterface::ID);
+    }
+
+    public function getTitle()
+    {
+        return $this->getData(PostInterface::TITLE);
+    }
+
+    public function getUrlKey()
+    {
+        return $this->getData(PostInterface::URL_KEY);
+    }
+
+    public function getPostContent()
+    {
+        return $this->getData(PostInterface::POST_CONTENT);
+    }
+
+    public function getTags()
+    {
+        return $this->getData(PostInterface::TAGS);
+    }
+
+    public function getCategory()
+    {
+        return $this->getData(PostInterface::CATEGORY);
+    }
+
+    public function getStatus()
+    {
+        return $this->getData(PostInterface::STATUS);
+    }
+
+    public function getCreatedAt()
+    {
+        return $this->getData(PostInterface::CREATED_AT);
+    }
+
+    public function getUpdatedAt()
+    {
+        return $this->getData(PostInterface::UPDATED_AT);
+    }
+
+    public function setTitle(string $title)
+    {
+        $this->setData(PostInterface::TITLE, $title);
+    }
+
+    public function setUrlKey(string $urlKey)
+    {
+        $this->setData(PostInterface::URL_KEY, $urlKey);
+    }
+
+    public function setContent(string $content)
+    {
+        $this->setData(PostInterface::CONTENT, $content);
+    }
+
+    public function setTags(string $tags)
+    {
+        $this->setData(PostInterface::TAGS, $tags);
+    }
+
+    public function setCategory(string $category)
+    {
+        $this->setData(PostInterface::CATEGORY, $category);
+    }
+
+    public function setStatus(bool $status)
+    {
+        $this->setData(PostInterface::STATUS, $status);
+    }
+
+    public function setCreatedAt($createdAt)
+    {
+        $this->setData(PostInterface::CREATED_AT, $createdAt);
+    }
+
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->setData(PostInterface::UPDATED_AT, $updatedAt);
     }
 }

@@ -14,7 +14,8 @@ interface PostRepositoryInterface
      * @return PostInterface
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
-    public function get(int $id): PostInterface;
+    public function getById(int $id): PostInterface;
+    public function get();
 
     /**
      * @param SearchCriteriaInterface $searchCriteria

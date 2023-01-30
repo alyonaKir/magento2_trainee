@@ -1,0 +1,23 @@
+<?php
+/** @var Magento\Framework\View\Element\Template $block */
+$postViewModel = $block->getData('viewModel');
+?>
+<div class="post-container" data-bind="scope: 'post'">
+    <!-- ko template: getTemplate() --><!-- /ko -->
+</div>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                        "post": {
+                            "component": "Alyona_PostEAV/js/post",
+                            "id": <?= $id = (int)$_SESSION['post_id'];?>,
+                            "posts": <?= $postViewModel->getPostInfo($id);?>
+                        }
+                    }
+                }
+            }
+    }
+</script>
+

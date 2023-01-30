@@ -1,0 +1,20 @@
+.post-container {
+    margin: 0;
+    padding: 0;
+    list-style: none none;
+}
+
+.post-container .post-container__content{
+    padding: 20px;
+}
+
+.post-container .post-container__content .post-meta{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 0 0 10px 0;
+}
+.post-container .post-container__content .post-meta .column1{
+    min-width: 80%;
+}
+

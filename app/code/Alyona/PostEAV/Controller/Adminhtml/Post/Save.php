@@ -34,7 +34,12 @@ class Save extends \Magento\Backend\App\Action
         $_publicActions = ['save'];
         $resultRedirect = $this->resultRedirectFactory->create();
         $data = $this->getRequest()->getPostValue();
-        $urlKey = $data['post_fieldset']['title'];
+
+//        $urlKey = $this->urlBuilder->getUrl(
+//            'blog/post/',
+//            ['title' => $data['post_fieldset']['title']]
+//        );
+        $urlKey = str_replace(" ", "-", strtolower($data['post_fieldset']['title']));
         $tags_string ="";
         $category_string="";
         $id = null;
@@ -56,7 +61,7 @@ class Save extends \Magento\Backend\App\Action
             if ($id) {
                 $postdata = [
                     'title' => $data['post_fieldset']['title'],
-                    'url_key' => $urlKey,
+                    'url_key' => "blog/post/id/" . $id,
                     'post_content' => $data['post_fieldset']['post_content'],
                     'tags' =>   $tags_string,
                     'category_id' => $category_string,
@@ -68,7 +73,6 @@ class Save extends \Magento\Backend\App\Action
             } else {
                 $postdata = [
                     'title' => $data['post_fieldset']['title'],
-                    'url_key' => $urlKey,
                     'post_content' => $data['post_fieldset']['post_content'],
                     'tags' =>  $tags_string,
                     'category_id' => $category_string,
