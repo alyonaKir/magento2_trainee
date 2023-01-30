@@ -17,22 +17,22 @@
                 <argument name="title" xsi:type="string">Blog</argument>
             </action>
         </referenceBlock>
+        <!--                   class="Magento\Framework\View\Element\Template"-->
         <referenceBlock name="content">
             <block name="alyona_blog_blog"
-                   class="Magento\Framework\View\Element\Template"
+                    class = "Magento\Framework\View\Element\Template"
                    template="Alyona_PostEAV::blog.phtml">
                 <arguments>
                     <argument name="viewModel" xsi:type="object">Alyona\PostEAV\ViewModel\Post</argument>
-<!--                    <argument name="pager" xsi:type="object">Alyona\PostEAV\Block\Pager</argument>-->
                 </arguments>
             </block>
         </referenceBlock>
-<!--        <referenceBlock name="content">-->
-<!--            <block class="Alyona\PostEAV\Block\Pager"-->
-<!--                   name="alyona_blog_pager"-->
-<!--                   template="Alyona_PostEAV::blog.phtml"-->
-<!--                   cacheable="false"-->
-<!--            />-->
-<!--        </referenceBlock>-->
+        <referenceBlock name="content">
+            <block class="Alyona\PostEAV\Block\Pager"
+                   name="alyona_blog_pager"
+                   template="Alyona_PostEAV::pagination.phtml"
+                   cacheable="false"
+            />
+        </referenceBlock>
     </body>
 </page>
