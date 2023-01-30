@@ -1,0 +1,23 @@
+<?php
+/** @var Magento\Framework\View\Element\Template $block */
+$blogViewModel = $block->getData('viewModel');
+?>
+<div class="category-container" data-bind="scope: 'categoryList'">
+    <!-- ko template: getTemplate() --><!-- /ko -->
+</div>
+
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                        "categoryList": {
+                            "component": "Alyona_PostEAV/js/category",
+                            "categories": <?= $blogViewModel->getCategoryList(); ?>
+                        }
+                    }
+                }
+            }
+    }
+
+</script>

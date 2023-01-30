@@ -20,7 +20,7 @@ class Index extends Action
     {
         $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
         $resultPage = $this->resultPageFactory->create();
-        $resultPage->getConfig()->getTitle()->set(__('Custom Pagination'));
+        $resultPage->getConfig()->getTitle()->set(__('Blog'));
         return $resultPage;
     }
 }

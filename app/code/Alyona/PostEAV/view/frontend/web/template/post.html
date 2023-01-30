@@ -4,9 +4,14 @@
             <h2 data-bind="text: posts.title"></h2>
             <div class="post-meta">
                 <div class="column1">
+                    Categories:
+                    <!-- ko foreach: {data: posts.category, as: 'category'} -->
+                    <span class="rect" data-bind="text: category"> </span>
+                    <!-- /ko -->
+                    <br>
                     tags:
                     <!-- ko foreach: {data: posts.tags, as: 'tag'} -->
-                    <span data-bind="text: tag"> </span>
+                    <span class="rect" data-bind="text: tag"> </span>
                     <!-- /ko -->
                 </div>
             </div>
