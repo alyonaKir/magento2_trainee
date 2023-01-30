@@ -54,9 +54,9 @@ class Post extends \Magento\Framework\Model\AbstractModel implements \Magento\Fr
         return $this->getData(PostInterface::TAGS);
     }
 
-    public function getCategory()
+    public function getCategoryId()
     {
-        return $this->getData(PostInterface::CATEGORY);
+        return $this->getData(PostInterface::CATEGORY_ID);
     }
 
     public function getStatus()
@@ -86,7 +86,7 @@ class Post extends \Magento\Framework\Model\AbstractModel implements \Magento\Fr
 
     public function setContent(string $content)
     {
-        $this->setData(PostInterface::CONTENT, $content);
+        $this->setData(PostInterface::POST_CONTENT, $content);
     }
 
     public function setTags(string $tags)
@@ -94,9 +94,9 @@ class Post extends \Magento\Framework\Model\AbstractModel implements \Magento\Fr
         $this->setData(PostInterface::TAGS, $tags);
     }
 
-    public function setCategory(string $category)
+    public function setCategoryId(string $category)
     {
-        $this->setData(PostInterface::CATEGORY, $category);
+        $this->setData(PostInterface::CATEGORY_ID, $category);
     }
 
     public function setStatus(bool $status)

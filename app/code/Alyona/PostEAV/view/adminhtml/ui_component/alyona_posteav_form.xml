@@ -115,8 +115,7 @@
                     <item name="disableLabel" xsi:type="boolean">true</item>
                     <item name="multiple" xsi:type="boolean">true</item>
                     <item name="levelsVisibility" xsi:type="number">1</item>
-                    <item name="sortOrder" xsi:type="number">70</item>
-                    <item name="required" xsi:type="boolean">true</item>
+<!--                    <item name="required" xsi:type="boolean">true</item>-->
                     <item name="listens" xsi:type="array">
                         <item name="${ $.namespace }.${ $.namespace }:responseData" xsi:type="string">setParsed</item>
                     </item>
@@ -142,7 +141,6 @@
                     <item name="disableLabel" xsi:type="boolean">true</item>
                     <item name="multiple" xsi:type="boolean">true</item>
                     <item name="levelsVisibility" xsi:type="number">1</item>
-                    <item name="sortOrder" xsi:type="number">70</item>
                     <item name="required" xsi:type="boolean">true</item>
                     <item name="listens" xsi:type="array">
                         <item name="${ $.namespace }.${ $.namespace }:responseData" xsi:type="string">setParsed</item>

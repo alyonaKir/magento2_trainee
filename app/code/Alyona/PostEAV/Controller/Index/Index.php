@@ -7,9 +7,20 @@ use Magento\Framework\Controller\ResultFactory;
 
 class Index extends Action
 {
+    protected $resultPageFactory;
+
+    public function __construct(
+        \Magento\Framework\App\Action\Context $context,
+        \Magento\Framework\View\Result\PageFactory $resultPageFactory
+    ) {
+        $this->resultPageFactory = $resultPageFactory;
+        parent::__construct($context);
+    }
     public function execute()
     {
-        $page = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
-        return $page;
+        $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
+        $resultPage = $this->resultPageFactory->create();
+        $resultPage->getConfig()->getTitle()->set(__('Custom Pagination'));
+        return $resultPage;
     }
 }

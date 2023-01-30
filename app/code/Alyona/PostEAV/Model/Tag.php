@@ -2,7 +2,9 @@
 
 namespace Alyona\PostEAV\Model;
 
-class Tag extends \Magento\Framework\Model\AbstractModel implements \Magento\Framework\DataObject\IdentityInterface
+use Alyona\PostEAV\Api\Data\TagInterface;
+
+class Tag extends \Magento\Framework\Model\AbstractModel implements \Magento\Framework\DataObject\IdentityInterface, TagInterface
 {
     const CACHE_TAG = 'alyona_posteav';
 
@@ -29,6 +31,21 @@ class Tag extends \Magento\Framework\Model\AbstractModel implements \Magento\Fra
 
     public function getId()
     {
-        return $this->getData('tag_id');
+        return $this->getData(TagInterface::ID);
+    }
+
+    public function setId($value)
+    {
+        $this->setData(TagInterface::ID, $value);
+    }
+
+    public function getName()
+    {
+        return $this->getData(TagInterface::NAME);
+    }
+
+    public function setName(string $name)
+    {
+        $this->setData(TagInterface::NAME, $name);
     }
 }

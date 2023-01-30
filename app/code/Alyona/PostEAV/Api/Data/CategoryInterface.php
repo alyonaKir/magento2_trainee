@@ -2,15 +2,12 @@
 
 namespace Alyona\PostEAV\Api\Data;
 
-interface PostInterface
+interface CategoryInterface
 {
-    const TABLE = 'alyona_posteav';
-    const ID = 'post_id';
-    const TITLE = 'title';
+    const TABLE = 'alyona_posteav_category';
+    const ID = 'category_id';
+    const NAME = 'name';
     const URL_KEY = 'url_key';
-    const POST_CONTENT = 'post_content';
-    const TAGS= 'tags';
-    const CATEGORY_ID = 'category_id';
     const STATUS = 'status';
     const CREATED_AT= 'created_at';
     const UPDATED_AT= 'updated_at';
@@ -26,20 +23,15 @@ interface PostInterface
      */
     public function setId(int $id);
 
-    public function getTitle();
+    public function getName();
     public function getUrlKey();
-    public function getPostContent();
-    public function getTags();
-    public function getCategoryId();
+
     public function getStatus();
     public function getCreatedAt();
     public function getUpdatedAt();
 
-    public function setTitle(string $title);
+    public function setname(string $name);
     public function setUrlKey(string $urlKey);
-    public function setContent(string $content);
-    public function setTags(string $tags);
-    public function setCategoryId(string $category);
     public function setStatus(bool $status);
     public function setCreatedAt($createdAt);
     public function setUpdatedAt($updatedAt);

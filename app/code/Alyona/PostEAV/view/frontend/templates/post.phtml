@@ -12,8 +12,7 @@ $postViewModel = $block->getData('viewModel');
                 "components": {
                         "post": {
                             "component": "Alyona_PostEAV/js/post",
-                            "id": <?= $id = (int)$_SESSION['post_id'];?>,
-                            "posts": <?= $postViewModel->getPostInfo($id);?>
+                            "posts": <?= $postViewModel->getPostInfo();?>
                         }
                     }
                 }

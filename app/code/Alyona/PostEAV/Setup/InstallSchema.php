@@ -55,7 +55,7 @@ class InstallSchema implements \Magento\Framework\Setup\InstallSchemaInterface
                     )
                     ->addColumn(
                         'category_id',
-                        \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+                        \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
                         1,
                         [],
                         'Post Category'

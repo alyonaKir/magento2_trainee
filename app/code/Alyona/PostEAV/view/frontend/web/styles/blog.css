@@ -11,10 +11,6 @@
     padding: 20px;
 }
 
-/*.blog-container .post-container {*/
-/*    !*min-height: 200px;*!*/
-/*    background-color: #ccc;*/
-/*}*/
 
 .blog-container .post-container .post-container__content .post-meta{
     display: flex;
@@ -24,4 +20,11 @@
 }
 .blog-container .post-container .post-container__content .post-meta .column1{
     min-width: 80%;
+}
+
+.rect{
+    border: 1px solid rgba(0,0,0,0.05);
+    padding: 1px;
+    border-radius: 3px;
+    background-color: rgba(0,0,0,0.05);
 }
