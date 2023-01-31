@@ -1,32 +1,55 @@
 <?php
+declare(strict_types=1);
 
 namespace Alyona\PostEAV\Controller;
 
-class CustomRouter implements \Magento\Framework\App\RouterInterface
+use Magento\Framework\App\Action\Forward;
+use Magento\Framework\App\ActionFactory;
+use Magento\Framework\App\ActionInterface;
+use Magento\Framework\App\RequestInterface;
+use Magento\Framework\App\ResponseInterface;
+use Magento\Framework\App\RouterInterface;
+
+class CustomRouter implements RouterInterface
 {
-    protected $actionFactory;
-    protected $_response;
+    /**
+     * @var ActionFactory
+     */
+    private $actionFactory;
+    /**
+     * @var ResponseInterface
+     */
+    private $response;
+    /**
+     * Router constructor.
+     *
+     * @param ActionFactory $actionFactory
+     * @param ResponseInterface $response
+     */
     public function __construct(
-        \Magento\Framework\App\ActionFactory $actionFactory,
-        \Magento\Framework\App\ResponseInterface $response
+        ActionFactory $actionFactory,
+        ResponseInterface $response
     ) {
         $this->actionFactory = $actionFactory;
-        $this->_response = $response;
+        $this->response = $response;
     }
-    public function match(\Magento\Framework\App\RequestInterface $request)
+    /**
+     * @param RequestInterface $request
+     * @return ActionInterface|null
+     */
+    public function match(RequestInterface $request): ?ActionInterface
     {
         $identifier = trim($request->getPathInfo(), '/');
-        if(strpos($identifier, 'post') !== false) {
-            $request->setModuleName('posteav')-> //module name
-            setControllerName('index')-> //controller name
-            setActionName('index')-> //action name
-            setParam('param', 3); //custom parameters
-        } else {
-            return false;
+        if (strpos($identifier, 'blog') !== false) {
+            $request->setModuleName('blog');
+            $request->setControllerName('index');
+            $request->setActionName('index');
+//            $request->setParams([
+//                'first_param' => 'first_value',
+//                'second_param' => 'second_value'
+//            ]);
+            return $this->actionFactory->create(Forward::class, ['request' => $request]);
         }
-        return $this->actionFactory->create(
-            'Magento\Framework\App\Action\Forward',
-            ['request' => $request]
-        );
+        return null;
     }
 }

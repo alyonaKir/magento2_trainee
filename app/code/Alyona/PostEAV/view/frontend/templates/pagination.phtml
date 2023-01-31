@@ -13,7 +13,7 @@ if ($block->getPagerHtml()): ?>
                     <div class="column1">
                         Categories:
                         <?php foreach ($block->getCategories($product->getId()) as $category): ?>
-                        <a href="https://<?php echo $_SERVER['HTTP_HOST']?>/blog/index/index/category/<?php echo $category;?>"><span class="rect" ><?php echo $category;?></span></a>
+                        <a href="https://<?php echo $_SERVER['HTTP_HOST']?>/blog/<?php echo $category;?>"><span class="rect" ><?php echo $category;?></span></a>
                         <?php endforeach; ?>
                         <br/>
                         tags:

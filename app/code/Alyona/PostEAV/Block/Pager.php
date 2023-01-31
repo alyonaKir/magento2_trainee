@@ -75,9 +75,6 @@ class Pager extends Template
                 $flag = 0;
             }
         }
-        $_SESSION['category'] = null;
-//        $collection = $this->hidePostById($collection, 2);
-
         return $collection;
     }
 
@@ -117,11 +114,9 @@ class Pager extends Template
     {
         $buff = $_SERVER['REQUEST_URI'];
         $buff_arr = explode('/', $buff);
-        $url_key = $buff_arr[count($buff_arr) - 2];
-
-        if ($url_key == "category") {
-            return array_pop($buff_arr);
+        if(count($buff_arr) == 2){
+            return "";
         }
-        return "";
+        return array_pop($buff_arr);
     }
 }
