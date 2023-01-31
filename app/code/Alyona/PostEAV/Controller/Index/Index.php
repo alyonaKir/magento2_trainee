@@ -13,21 +13,26 @@ class Index extends Action
      * @var PageFactory
      */
     protected $resultPageFactory;
+
     /**
-     * @param Context     $context
+     * @param Context $context
      * @param PageFactory $resultPageFactory
      */
     public function __construct(
-        Context $context,
+        Context     $context,
         PageFactory $resultPageFactory
-    ) {
+    )
+    {
         parent::__construct($context);
         $this->resultPageFactory = $resultPageFactory;
     }
+
     public function execute()
     {
+//        $this->getIdByUrlKey();
         $resultPage = $this->resultPageFactory->create();
         $resultPage->getConfig()->getTitle()->set(__('Blog'));
         return $resultPage;
     }
+
 }

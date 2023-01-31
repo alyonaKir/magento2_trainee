@@ -1,7 +1,12 @@
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
 .blog-container ul{
     margin: 0;
     padding: 0;
-    list-style-type: none;
+    list-style: none none;
 }
 .blog-container .post-container{
     border: 1px solid #ccc;

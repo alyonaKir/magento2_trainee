@@ -4,9 +4,10 @@ $categories = $block->getCategories();
 ?>
 <nav class="categories">
     <ol>
+        <li class="category rect"><a href="https://<?php echo $_SERVER['HTTP_HOST']?>/blog">All posts</a></li>
         <li class="category">Categories:</li>
         <?php foreach ($categories->getItems() as $category): ?>
-        <li class="category rect"><a href="#"><?php echo $category->getName();?></a></li>
+        <li class="category rect"><a href="https://<?php echo $_SERVER['HTTP_HOST']?>/blog/index/index/category/<?php echo $category->getName();?>"><?php echo $category->getName();?></a></li>
         <?php endforeach;?>
     </ol>
 </nav>

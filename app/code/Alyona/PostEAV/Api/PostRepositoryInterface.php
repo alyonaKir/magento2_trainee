@@ -15,6 +15,7 @@ interface PostRepositoryInterface
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function getById(int $id): PostInterface;
+    public function getByTitle(string $url_key): int;
     public function get();
 
     /**

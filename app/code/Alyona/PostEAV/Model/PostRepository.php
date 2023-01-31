@@ -4,7 +4,6 @@ namespace Alyona\PostEAV\Model;
 
 use Alyona\PostEAV\Api\Data\PostInterface;
 use Alyona\PostEAV\Api\PostRepositoryInterface;
-use Alyona\PostEAV\Model\PostSearchResultFactory;
 use Alyona\PostEAV\Api\PostSearchResultInterface;
 use Alyona\PostEAV\Model\ResourceModel\Post\Grid\CollectionFactory;
 use Alyona\PostEAV\Model\ResourceModel\Post\Post as PostResource;
@@ -51,6 +50,17 @@ class PostRepository implements PostRepositoryInterface
             throw new NoSuchEntityException(__('Unable to find entity with ID "%1"', $id));
         }
         return $object;
+    }
+
+    public function getByTitle(string $url_key): int
+    {
+        $posts = $this->get();
+        foreach ($posts->getItems() as $post) {
+            if ($post->getUrlKey()==$url_key) {
+                return $post->getId();
+            }
+        }
+        throw new NoSuchEntityException(__('Unable to find entity with ID "%1"', $post));
     }
 
     /**

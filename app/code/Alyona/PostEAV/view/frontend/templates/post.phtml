@@ -2,19 +2,25 @@
 /** @var Magento\Framework\View\Element\Template $block */
 $post = $block->getPostInfo();
 ?>
-<li class="post-container">
-    <div class="post-container__content">
-        <h2><?php echo $post->getTitle();?></h2>
-        <div class="post-meta">
-            <div class="column1">
-                Categories:
-                <a href="blog/category/index"><span class="rect"><?php echo $post->getCategoryId() ?></span></a>
-                <br/>
-                tags:
-                <span class="rect"><?php echo $post->getTags(); ?></span>
+<ul class="blog-container">
+    <li class="post-container">
+        <div class="post-container__content">
+            <h2><?php echo $post->getTitle(); ?></h2>
+            <div class="post-meta">
+                <div class="column1">
+                    Categories:
+                    <?php foreach ($block->getCategories($post->getId()) as $category): ?>
+                        <a href="https://<?php echo $_SERVER['HTTP_HOST']?>/blog/index/index/category/<?php echo $category;?>"><span class="rect"><?php echo $category; ?></span></a>
+                    <?php endforeach; ?>
+                    <br/>
+                    tags:
+                    <?php foreach ($block->getTags($post->getId()) as $tag): ?>
+                        <span class="rect"><?php echo $tag; ?></span>
+                    <?php endforeach; ?>
+                </div>
+                <div class="column2"> <?php echo $post->getUpdatedAt(); ?></div>
             </div>
-            <div class="column2"> <?php echo $post->getUpdatedAt(); ?></div>
+            <p><?php echo $post->getPostContent(); ?></p>
         </div>
-        <p><?php echo $post->getPostContent(); ?></p>
-    </div>
-</li>
+    </li>
+</ul>
