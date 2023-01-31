@@ -1,0 +1,13 @@
+<?php
+/** @var Magento\Framework\View\Element\Template $block */
+$categories = $block->getCategories();
+?>
+<nav class="categories">
+    <ol>
+        <li class="category">Categories:</li>
+        <?php foreach ($categories->getItems() as $category): ?>
+        <li class="category rect"><a href="#"><?php echo $category->getName();?></a></li>
+        <?php endforeach;?>
+    </ol>
+</nav>
+

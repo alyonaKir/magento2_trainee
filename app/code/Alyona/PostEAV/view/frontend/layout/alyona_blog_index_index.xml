@@ -9,6 +9,11 @@
         <referenceContainer name="header.container">
             <referenceBlock name="top.search" remove="true"/>
             <referenceBlock name="minicart" remove="true"/>
+            <block class="Alyona\PostEAV\Block\Navigation"
+                   name="alyona_blog_nav"
+                   template="Alyona_PostEAV::nav_category.phtml"
+                   cacheable="false"
+            />
         </referenceContainer>
         <referenceBlock name="sidebar.main" remove="true"/>
         <referenceBlock name="sidebar.additional" remove="true"/>
@@ -17,16 +22,13 @@
                 <argument name="title" xsi:type="string">Blog</argument>
             </action>
         </referenceBlock>
-        <!--                   class="Magento\Framework\View\Element\Template"-->
-        <referenceBlock name="content">
-            <block name="alyona_blog_blog"
-                    class = "Magento\Framework\View\Element\Template"
-                   template="Alyona_PostEAV::blog.phtml">
-                <arguments>
-                    <argument name="viewModel" xsi:type="object">Alyona\PostEAV\ViewModel\Post</argument>
-                </arguments>
-            </block>
-        </referenceBlock>
+<!--        <referenceBlock name="header">-->
+<!--            <block class="Alyona\PostEAV\Block\Navigation"-->
+<!--                   name="alyona_blog_nav"-->
+<!--                   template="Alyona_PostEAV::nav_category.phtml"-->
+<!--                   cacheable="false"-->
+<!--            />-->
+<!--        </referenceBlock>-->
         <referenceBlock name="content">
             <block class="Alyona\PostEAV\Block\Pager"
                    name="alyona_blog_pager"

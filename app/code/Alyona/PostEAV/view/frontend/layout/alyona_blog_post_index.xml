@@ -17,15 +17,21 @@
                 <argument name="title" xsi:type="string">Post</argument>
             </action>
         </referenceBlock>
-
         <referenceBlock name="content">
-            <block name="alyona_blog_post"
-                   class="Magento\Framework\View\Element\Template"
-                   template="Alyona_PostEAV::post.phtml">
-                <arguments>
-                    <argument name="viewModel" xsi:type="object">Alyona\PostEAV\ViewModel\Post</argument>
-                </arguments>
-            </block>
+            <block class="Alyona\PostEAV\Block\Post"
+                   name="alyona_blog_post"
+                   template="Alyona_PostEAV::post.phtml"
+                   cacheable="false"
+            />
         </referenceBlock>
+<!--        <referenceBlock name="content">-->
+<!--            <block name="alyona_blog_post"-->
+<!--                   class="Magento\Framework\View\Element\Template"-->
+<!--                   template="Alyona_PostEAV::post.phtml">-->
+<!--                <arguments>-->
+<!--                    <argument name="viewModel" xsi:type="object">Alyona\PostEAV\ViewModel\Post</argument>-->
+<!--                </arguments>-->
+<!--            </block>-->
+<!--        </referenceBlock>-->
     </body>
 </page>

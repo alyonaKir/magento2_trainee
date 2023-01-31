@@ -1,7 +1,7 @@
 .blog-container ul{
     margin: 0;
     padding: 0;
-    list-style: none none;
+    list-style-type: none;
 }
 .blog-container .post-container{
     border: 1px solid #ccc;
@@ -27,4 +27,26 @@
     padding: 1px;
     border-radius: 3px;
     background-color: rgba(0,0,0,0.05);
+}
+
+.categories {
+    border-bottom: 1px solid #ccc;
+    font-size: medium;
+}
+.categories ol {
+    list-style-type: none;
+    padding-left: 5%;
+}
+
+.category {
+    display: inline-block;
+    padding: 10px;
+}
+
+.category a::after {
+    display: inline-block;
+    color: #000;
+    font-size: 100%;
+    font-weight: bold;
+    padding: 0 3px;
 }

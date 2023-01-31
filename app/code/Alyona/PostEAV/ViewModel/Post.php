@@ -2,9 +2,9 @@
 
 namespace Alyona\PostEAV\ViewModel;
 
+use Alyona\PostEAV\Model\CategoryRepository;
 use Alyona\PostEAV\Model\PostRepository;
 use Alyona\PostEAV\Model\TagRepository;
-use Alyona\PostEAV\Model\CategoryRepository;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Serialize\SerializerInterface;
 use Magento\Framework\UrlInterface;
@@ -50,7 +50,6 @@ class Post implements ArgumentInterface
 
     public function getPosts(): string
     {
-
         $posts = $this->postRepository->get();
         $result = [];
 
@@ -89,12 +88,12 @@ class Post implements ArgumentInterface
         $tags_arr = explode(',', $tags);
         $result =[];
 
-        for($i=0; $i<count($tags_arr);$i++){
-            try{
+        for ($i=0; $i<count($tags_arr);$i++) {
+            try {
                 $tag = $this->tagRepository->getById((int)$tags_arr[$i]);
                 $result[] = $tag->getName();
-            }catch (NoSuchEntityException $exception){}
-
+            } catch (NoSuchEntityException $exception) {
+            }
         }
         return $result;
     }
@@ -104,22 +103,21 @@ class Post implements ArgumentInterface
         $result =[];
         try {
             $categories_arr = explode(',', $categories);
-        } catch (Exception $exception){
+        } catch (Exception $exception) {
             try {
                 $result[] = $this->categoryRepository->getById((int)$categories);
                 return $result;
-            } catch(Exception $exception){
+            } catch (Exception $exception) {
                 return $result;
             }
         }
 
-
-        for($i=0; $i<count($categories_arr);$i++){
-            try{
+        for ($i=0; $i<count($categories_arr);$i++) {
+            try {
                 $category = $this->categoryRepository->getById((int)$categories_arr[$i]);
                 $result[] = $category->getName();
-            }catch (NoSuchEntityException $exception){}
-
+            } catch (NoSuchEntityException $exception) {
+            }
         }
         return $result;
     }

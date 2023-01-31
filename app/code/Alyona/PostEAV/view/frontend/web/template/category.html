@@ -1,8 +1,0 @@
-<ul class="category-list-container">
-    <!-- ko foreach: {data: categories, as: 'category'} -->
-    <li class="category-container" data-bind="attr: {id: category.id}">
-            <a data-bind="attr: {href: category.url}"><p data-bind="text: category.name"></p></a>
-        <div class="column2" data-bind="text: $parent.getDate(category.updatedAt)"></div>
-    </li>
-    <!-- /ko -->
-</ul>
