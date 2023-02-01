@@ -4,7 +4,6 @@ namespace Alyona\PostEAV\Controller\Adminhtml\Post;
 
 use Alyona\PostEAV\Model\Post;
 use Magento\Backend\App\Action\Context;
-use PHPUnit\Exception;
 
 class Save extends \Magento\Backend\App\Action
 {
@@ -41,23 +40,23 @@ class Save extends \Magento\Backend\App\Action
 //            ['title' => $data['post_fieldset']['title']]
 //        );
         $urlKey = str_replace(" ", "-", strtolower($data['post_fieldset']['title']));
-        $tags_string ="";
-        $category_string="";
-        $id = null;
+        $tags_string ='0';
+        $category_string='0';
+        $id = "";
         if (isset($data['post_fieldset']['tags']) && is_array($data['post_fieldset']['tags'])) {
             $tags_string = implode(',', $data['post_fieldset']['tags']);
-        }elseif(isset($data['post_fieldset']['tags'])){
+        } elseif (isset($data['post_fieldset']['tags'])) {
             $category_string = $data['post_fieldset']['tags'];
         }
         if (isset($data['post_fieldset']['category_id']) && is_array($data['post_fieldset']['category_id'])) {
-                $category_string = implode(',', $data['post_fieldset']['category_id']);
-        } elseif(isset($data['post_fieldset']['category_id'])){
+            $category_string = implode(',', $data['post_fieldset']['category_id']);
+        } elseif (isset($data['post_fieldset']['category_id'])) {
             $category_string = $data['post_fieldset']['category_id'];
         }
         //$urlKey = $this->urlBuilder->getRouteUrl('posteav/post/edit', [ 'key'=>$this->urlBuilder->getSecretKey('posteav', 'post', 'edit')]);
         //$urlKey = $this->_objectManager->create('Magento\Catalog\Model\Product\Url')->formatUrlKey($data['url_key']);
         try {
-            if (isset($_SESSION['id'])) {
+            if (isset($_SESSION['id']) && $_SESSION!=null) {
                 $id = $_SESSION['id'];
             }
             //$id = (int)$this->getRequest()->getParam('id');
@@ -66,7 +65,7 @@ class Save extends \Magento\Backend\App\Action
             if ($id) {
                 $postdata = [
                     'title' => $data['post_fieldset']['title'],
-                    'url_key' => "blog/post/index/id/" . $id,
+                    'url_key' => $urlKey,
                     'post_content' => $data['post_fieldset']['post_content'],
                     'tags' =>   $tags_string,
                     'category_id' => $category_string,
@@ -78,6 +77,7 @@ class Save extends \Magento\Backend\App\Action
             } else {
                 $postdata = [
                     'title' => $data['post_fieldset']['title'],
+                    'url_key' => $urlKey,
                     'post_content' => $data['post_fieldset']['post_content'],
                     'tags' =>  $tags_string,
                     'category_id' => $category_string,
@@ -89,15 +89,17 @@ class Save extends \Magento\Backend\App\Action
                 $objectManager->save();
                 $this->messageManager->addSuccessMessage(__('The Post has been saved.'));
             }
-            $_SESSION['id'] = null;
         } catch (\Exception $e) {
             $this->messageManager->addErrorMessage(nl2br($e->getMessage()));
+            $_SESSION['id'] = null;
             return $resultRedirect->setPath('*/*/edit');
         }
         if ($this->getRequest()->getParam('back')) {
             $this->messageManager->addSuccessMessage(__('The Post has been saved.'));
+            $_SESSION['id'] = null;
             return $resultRedirect->setPath('*/*/edit', ['post_id' => $id, '_current' => true]);
         }
+        $_SESSION['id'] = null;
         return $resultRedirect->setPath('*/*/index');
     }
 }

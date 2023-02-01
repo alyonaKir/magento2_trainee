@@ -45,8 +45,8 @@ class CustomRouter implements RouterInterface
             $request->setControllerName('index');
             $request->setActionName('index');
 //            $request->setParams([
-//                'first_param' => 'first_value',
-//                'second_param' => 'second_value'
+//                'post' => 'post_value',
+//                'post_title' => 'url_key'
 //            ]);
             return $this->actionFactory->create(Forward::class, ['request' => $request]);
         }

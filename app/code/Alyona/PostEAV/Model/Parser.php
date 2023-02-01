@@ -37,23 +37,25 @@ class Parser implements ArgumentInterface
 
     public function getCategories(string $categories): array
     {
-        $result =[];
-        try {
-            $categories_arr = explode(',', $categories);
-        } catch (Exception $exception) {
+        $result = [];
+        if($categories != null) {
             try {
-                $result[] = $this->categoryRepository->getById((int)$categories);
-                return $result;
+                $categories_arr = explode(',', $categories);
             } catch (Exception $exception) {
-                return $result;
+                try {
+                    $result[] = $this->categoryRepository->getById((int)$categories);
+                    return $result;
+                } catch (Exception $exception) {
+                    return $result;
+                }
             }
-        }
 
-        for ($i=0; $i<count($categories_arr);$i++) {
-            try {
-                $category = $this->categoryRepository->getById((int)$categories_arr[$i]);
-                $result[] = $category->getName();
-            } catch (NoSuchEntityException $exception) {
+            for ($i = 0; $i < count($categories_arr); $i++) {
+                try {
+                    $category = $this->categoryRepository->getById((int)$categories_arr[$i]);
+                    $result[] = $category->getName();
+                } catch (NoSuchEntityException $exception) {
+                }
             }
         }
         return $result;

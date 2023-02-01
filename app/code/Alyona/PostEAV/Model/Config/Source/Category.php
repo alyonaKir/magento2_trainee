@@ -3,6 +3,7 @@
 namespace Alyona\PostEAV\Model\Config\Source;
 
 use Magento\Framework\Option\ArrayInterface;
+use Magento\Framework\Data\OptionSourceInterface;
 
 class Category implements ArrayInterface
 {
@@ -24,6 +25,16 @@ class Category implements ArrayInterface
 
     public function toOptionArray()
     {
+//        foreach ($this->getOptions() as $value => $label) {
+//            $this->attributeOptionsList = [
+//                [
+//                    'value' => $value,
+//                    'label' => $label['name'],
+//                    "__disableTmpl" => 1
+//                ],
+//            ];
+//        }
+//        return $this->attributeOptionsList;
         $result = [];
         foreach ($this->getOptions() as $value => $label) {
             if ($label['status']) {

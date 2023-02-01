@@ -35,11 +35,11 @@ class Save extends \Magento\Backend\App\Action
         $resultRedirect = $this->resultRedirectFactory->create();
         $data = $this->getRequest()->getPostValue();
         $id="";
-        $urlKey = $data['category_fieldset']['name'];
+        $urlKey = $urlKey = str_replace(" ", "-", strtolower($data['category_fieldset']['name']));
         //$urlKey = $this->urlBuilder->getRouteUrl('posteav/post/edit', [ 'key'=>$this->urlBuilder->getSecretKey('posteav', 'post', 'edit')]);
         //$urlKey = $this->_objectManager->create('Magento\Catalog\Model\Product\Url')->formatUrlKey($data['url_key']);
         try {
-            if (isset($_SESSION['category_id'])) {
+            if (isset($_SESSION['category_id']) && $_SESSION['category_id']!=null) {
                 $id = $_SESSION['category_id'];
             }
             //$id = (int)$this->getRequest()->getParam('id');

@@ -6,6 +6,11 @@ use Magento\Framework\View\Element\UiComponent\Control\ButtonProviderInterface;
 
 class Save extends Generic implements ButtonProviderInterface
 {
+    public function getSaveUrl()
+    {
+        $id = $this->getEntityId();
+        return $this->getUrl('*/*/save', ['id' => $id]);
+    }
     public function getButtonData()
     {
         return [

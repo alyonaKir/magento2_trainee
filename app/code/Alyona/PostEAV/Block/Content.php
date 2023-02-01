@@ -4,7 +4,7 @@ namespace Alyona\PostEAV\Block;
 
 use Magento\Framework\View\Element\Template;
 
-class Pager extends Template
+class Content extends Template
 {
     /**
      * @var \Magento\Catalog\Model\ProductRepository
@@ -51,7 +51,11 @@ class Pager extends Template
 
     public function getPagerHtml()
     {
-        return $this->getChildHtml('pager');
+        if (!$this->isPost()) {
+            return $this->getChildHtml('pager');
+        } else {
+            return null;
+        }
     }
 
     public function getProductCollection()
@@ -60,12 +64,13 @@ class Pager extends Template
         $page = ($this->getRequest()->getParam('p')) ? $this->getRequest()->getParam('p') : 1;
         $pageSize = ($this->getRequest()->getParam('limit')) ? $this->getRequest()->getParam('limit') : 5;
         $collection = $this->postFactory->create()->getCollection();
+        $collection = $this->checkEnable($collection);
         $collection->setPageSize($pageSize);
         $collection->setCurPage($page);
-        if ($this->getIdByUrlKey()!="") {
+        if ($this->getUrlKey()!="" && !$this->isPost()) {
             foreach ($collection as $item) {
                 foreach ($this->getCategories($item->getId()) as $category) {
-                    if ($category == $this->getIdByUrlKey()) {
+                    if ($category == $this->getUrlKey()) {
                         $flag = 1;
                     }
                 }
@@ -74,6 +79,14 @@ class Pager extends Template
                 }
                 $flag = 0;
             }
+        } elseif ($this->isPost()) {
+            $id = $this->postRepository->getByTitle($this->getUrlKey());
+            foreach ($collection as $item) {
+                if ($item->getId()!= $id) {
+                    $collection = $this->hidePostById($collection, $item->getId());
+                }
+            }
+            // return $this->postRepository->getByTitle($this->getUrlKey());
         }
         return $collection;
     }
@@ -90,19 +103,13 @@ class Pager extends Template
         return $this->parser->getCategories($post->getTags());
     }
 
-    public function getPostInfo()
-    {
-        $id = (int)$_SESSION['post_id'];
-        return $this->postRepository->getById($id);
-    }
-
     public function getPreview($id): string
     {
         $post = $this->postRepository->getById($id);
         return mb_strimwidth($post->getPostContent(), 0, 255) . "...";
     }
 
-    public function hidePostById(&$collection, $id)
+    private function hidePostById(&$collection, $id)
     {
         foreach ($collection as $item) {
             $collection->removeItemByKey($id);
@@ -110,11 +117,30 @@ class Pager extends Template
         return $collection;
     }
 
-    public function getIdByUrlKey()
+    private function checkEnable(&$collection)
+    {
+        foreach ($collection as $item) {
+            if (!$item->getStatus()) {
+                $collection = $this->hidePostById($collection, $item->getId());
+            }
+        }
+        return $collection;
+    }
+
+    private function isPost()
     {
         $buff = $_SERVER['REQUEST_URI'];
         $buff_arr = explode('/', $buff);
-        if(count($buff_arr) == 2){
+        if (array_search('post', $buff_arr)) {
+            return true;
+        }
+        return false;
+    }
+    private function getUrlKey()
+    {
+        $buff = $_SERVER['REQUEST_URI'];
+        $buff_arr = explode('/', $buff);
+        if (count($buff_arr) == 2) {
             return "";
         }
         return array_pop($buff_arr);

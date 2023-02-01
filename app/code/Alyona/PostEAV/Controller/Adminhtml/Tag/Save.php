@@ -36,7 +36,9 @@ class Save extends \Magento\Backend\App\Action
         $data = $this->getRequest()->getPostValue();
         $id ="";
         try {
-            if(isset($_SESSION['tag_id'])) $id = $_SESSION['tag_id'];
+            if (isset($_SESSION['tag_id']) && $_SESSION['tag_id']!=null) {
+                $id = $_SESSION['tag_id'];
+            }
             $date = $this->date->gmtDate();
             $objectManager = $this->_objectManager->create('Alyona\PostEAV\Model\Tag');
             if ($id) {

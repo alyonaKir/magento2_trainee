@@ -22,17 +22,10 @@
                 <argument name="title" xsi:type="string">Blog</argument>
             </action>
         </referenceBlock>
-<!--        <referenceBlock name="header">-->
-<!--            <block class="Alyona\PostEAV\Block\Navigation"-->
-<!--                   name="alyona_blog_nav"-->
-<!--                   template="Alyona_PostEAV::nav_category.phtml"-->
-<!--                   cacheable="false"-->
-<!--            />-->
-<!--        </referenceBlock>-->
         <referenceBlock name="content">
-            <block class="Alyona\PostEAV\Block\Pager"
-                   name="alyona_blog_pager"
-                   template="Alyona_PostEAV::pagination.phtml"
+            <block class="Alyona\PostEAV\Block\Content"
+                   name="alyona_blog_content"
+                   template="Alyona_PostEAV::blog.phtml"
                    cacheable="false"
             />
         </referenceBlock>
