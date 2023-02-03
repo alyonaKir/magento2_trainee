@@ -26,7 +26,7 @@ class Tags implements ArrayInterface
         $result = [];
         foreach ($this->getOptions() as $value => $label) {
             $result[] = [
-                'value' => $value,
+                'value' => $label['tag_id'],
                 'label' => $label['name'],
             ];
         }

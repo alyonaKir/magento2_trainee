@@ -39,7 +39,7 @@ class Category implements ArrayInterface
         foreach ($this->getOptions() as $value => $label) {
             if ($label['status']) {
                 $result[] = [
-                    'value' => $value,
+                    'value' => $label['category_id'],
                     'label' => $label['name'],
                 ];
             }

@@ -31,6 +31,20 @@
             </argument>
         </argument>
     </dataSource>
+    <massaction name="listing_massaction">
+        <action name="delete">
+            <settings>
+                <confirm>
+                    <message translate="true">Are you sure to delete selected items?</message>
+                    <title translate="true">Delete items</title>
+                </confirm>
+                <url path="posteav/post/massdelete"/>
+                <type>delete</type>
+                <label translate="true">Delete</label>
+            </settings>
+        </action>
+    </massaction>
+
     <columns name="spinner_columns">
         <selectionsColumn name="ids">
             <argument name="data" xsi:type="array">

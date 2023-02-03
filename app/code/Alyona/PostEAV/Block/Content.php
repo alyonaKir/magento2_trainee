@@ -70,8 +70,9 @@ class Content extends Template
         if ($this->getUrlKey()!="" && !$this->isPost()) {
             foreach ($collection as $item) {
                 foreach ($this->getCategories($item->getId()) as $category) {
-                    if ($category == $this->getUrlKey()) {
+                    if ($category == $this->getUrlKey() && count($this->getCategories($item->getId()))>=1) {
                         $flag = 1;
+                        break;
                     }
                 }
                 if ($flag!=1) {
@@ -100,7 +101,7 @@ class Content extends Template
     public function getTags($id): array
     {
         $post = $this->postRepository->getById($id);
-        return $this->parser->getCategories($post->getTags());
+        return $this->parser->getTags($post->getTags());
     }
 
     public function getPreview($id): string

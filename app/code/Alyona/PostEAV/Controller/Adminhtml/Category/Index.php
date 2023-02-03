@@ -19,7 +19,9 @@ class Index extends \Magento\Backend\App\Action
         $resultPage = $this->resultPageFactory->create();
         $resultPage->setActiveMenu('Alyona_Post::module');
         $resultPage->getConfig()->getTitle()->prepend((__('Categories')));
-
+        if (isset($_SESSION['category_id'])) {
+            $_SESSION['category_id'] = null;
+        }
         return $resultPage;
     }
 }

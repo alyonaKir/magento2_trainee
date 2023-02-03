@@ -19,7 +19,7 @@ class Index extends \Magento\Backend\App\Action
         $resultPage = $this->resultPageFactory->create();
         $resultPage->setActiveMenu('Alyona_Post::module');
         $resultPage->getConfig()->getTitle()->prepend((__('Posts')));
-
+        if(isset($_SESSION['id'])) $_SESSION['id'] = null;
         return $resultPage;
     }
 }
