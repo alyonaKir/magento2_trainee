@@ -3,11 +3,14 @@
 namespace Alyona\PostEAV\Controller\Adminhtml\Post;
 
 use Alyona\PostEAV\Model\Post;
+use Alyona\PostEAV\Model\PostRepository;
 use Magento\Backend\App\Action\Context;
 
 class Save extends \Magento\Backend\App\Action
 {
     protected $request;
+
+    protected $postRepository;
     protected $_moduleFactory;
     protected $resultRedirectFactory;
     protected $jsonHelper;
@@ -16,16 +19,18 @@ class Save extends \Magento\Backend\App\Action
     protected $_publicActions;
 
     public function __construct(
-        Context $context,
-        Post $moduleFactory,
-        \Magento\Framework\Json\Helper\Data $jsonHelper,
+        Context                                     $context,
+        Post                                        $moduleFactory,
+        \Magento\Framework\Json\Helper\Data         $jsonHelper,
         \Magento\Framework\Stdlib\DateTime\DateTime $date,
-        \Magento\Backend\Model\UrlInterface $urlBuilder
+        \Magento\Backend\Model\UrlInterface         $urlBuilder,
+        PostRepository                              $postRepository
     ) {
         $this->jsonHelper = $jsonHelper;
         $this->date = $date;
         $this->_moduleFactory = $moduleFactory;
         $this->urlBuilder = $urlBuilder;
+        $this->postRepository = $postRepository;
         parent::__construct($context);
     }
 
@@ -35,19 +40,16 @@ class Save extends \Magento\Backend\App\Action
         $resultRedirect = $this->resultRedirectFactory->create();
         $data = $this->getRequest()->getPostValue();
 
-//        $urlKey = $this->urlBuilder->getUrl(
-//            'blog/post/',
-//            ['title' => $data['post_fieldset']['title']]
-//        );
-        $urlKey = str_replace(" ", "-", strtolower($data['post_fieldset']['title']));
-        $tags_string ='0';
-        $category_string='0';
+        $tags_string = '0';
+        $category_string = '0';
         $id = "";
+
         if (isset($data['post_fieldset']['tags']) && is_array($data['post_fieldset']['tags'])) {
             $tags_string = implode(',', $data['post_fieldset']['tags']);
         } elseif (isset($data['post_fieldset']['tags'])) {
             $category_string = $data['post_fieldset']['tags'];
         }
+
         if (isset($data['post_fieldset']['category_id']) && is_array($data['post_fieldset']['category_id'])) {
             $category_string = implode(',', $data['post_fieldset']['category_id']);
         } elseif (isset($data['post_fieldset']['category_id'])) {
@@ -56,7 +58,7 @@ class Save extends \Magento\Backend\App\Action
         //$urlKey = $this->urlBuilder->getRouteUrl('posteav/post/edit', [ 'key'=>$this->urlBuilder->getSecretKey('posteav', 'post', 'edit')]);
         //$urlKey = $this->_objectManager->create('Magento\Catalog\Model\Product\Url')->formatUrlKey($data['url_key']);
         try {
-            if (isset($_SESSION['id']) && $_SESSION!=null) {
+            if (isset($_SESSION['id']) && $_SESSION != null) {
                 $id = $_SESSION['id'];
             }
             //$id = (int)$this->getRequest()->getParam('id');
@@ -65,9 +67,9 @@ class Save extends \Magento\Backend\App\Action
             if ($id) {
                 $postdata = [
                     'title' => $data['post_fieldset']['title'],
-                    'url_key' => $urlKey,
+                    'url_key' => $this->getUrlKey($data['post_fieldset']['title']),
                     'post_content' => $data['post_fieldset']['post_content'],
-                    'tags' =>   $tags_string,
+                    'tags' => $tags_string,
                     'category_id' => $category_string,
                     'status' => $data['post_fieldset']['status'],
                     'updated_at' => $date
@@ -77,9 +79,9 @@ class Save extends \Magento\Backend\App\Action
             } else {
                 $postdata = [
                     'title' => $data['post_fieldset']['title'],
-                    'url_key' => $urlKey,
+                    'url_key' => $this->getUrlKey($data['post_fieldset']['title']),
                     'post_content' => $data['post_fieldset']['post_content'],
-                    'tags' =>  $tags_string,
+                    'tags' => $tags_string,
                     'category_id' => $category_string,
                     'status' => $data['post_fieldset']['status'],
                     'created_at' => $date,
@@ -101,5 +103,23 @@ class Save extends \Magento\Backend\App\Action
         }
         $_SESSION['id'] = null;
         return $resultRedirect->setPath('*/*/index');
+    }
+
+    private function getUrlKey($title):string
+    {
+        $posts = $this->postRepository->get();
+        $count = 0;
+        foreach ($posts->getItems() as $post) {
+            if ($post->getTitle() == $title) {
+                $count++;
+            }
+        }
+
+        if ($count==0) {
+            $urlKey = str_replace(" ", "-", strtolower($title));
+        } else {
+            $urlKey = str_replace(" ", "-", strtolower($title)) . '-' . $count;
+        }
+        return $urlKey;
     }
 }

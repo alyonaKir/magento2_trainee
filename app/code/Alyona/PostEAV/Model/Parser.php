@@ -3,8 +3,6 @@
 namespace Alyona\PostEAV\Model;
 
 use Magento\Framework\Exception\NoSuchEntityException;
-use Magento\Framework\Serialize\SerializerInterface;
-use Magento\Framework\UrlInterface;
 use Magento\Framework\View\Element\Block\ArgumentInterface;
 use Magento\Setup\Exception;
 
@@ -38,7 +36,7 @@ class Parser implements ArgumentInterface
     public function getCategories(string $categories): array
     {
         $result = [];
-        if($categories != null) {
+        if ($categories != null) {
             try {
                 $categories_arr = explode(',', $categories);
             } catch (Exception $exception) {
