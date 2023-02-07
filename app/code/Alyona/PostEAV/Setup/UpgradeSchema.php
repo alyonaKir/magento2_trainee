@@ -13,7 +13,7 @@ class UpgradeSchema implements UpgradeSchemaInterface
         $installer = $setup;
         $installer->startSetup();
 
-        if (version_compare($context->getVersion(), '1.5.0', '<')) {
+        if (version_compare($context->getVersion(), '1.6.0', '<')) {
             if (!$installer->tableExists('alyona_posteav')) {
                 $table = $installer->getConnection()->newTable(
                     $installer->getTable('alyona_posteav')
@@ -29,6 +29,16 @@ class UpgradeSchema implements UpgradeSchemaInterface
                             'unsigned' => true,
                         ],
                         'Post ID'
+                    )
+                    ->addColumn(
+                        'store_id',
+                        \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+                        null,
+                        [
+                            'nullable' => false,
+                            'default' => 1,
+                        ],
+                        'Store ID'
                     )
                     ->addColumn(
                         'title',
@@ -61,7 +71,7 @@ class UpgradeSchema implements UpgradeSchemaInterface
                     ->addColumn(
                         'category_id',
                         \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
-                        1,
+                        255,
                         [],
                         'Post Category'
                     )
@@ -108,7 +118,7 @@ class UpgradeSchema implements UpgradeSchemaInterface
                 ->addColumn(
                     'category_id',
                     \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
-                    null,
+                    1,
                     [
                         'identity' => true,
                         'nullable' => false,
@@ -161,7 +171,7 @@ class UpgradeSchema implements UpgradeSchemaInterface
                     ['name','url_key'],
                     \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_FULLTEXT
                 ),
-                ['title','url_key'],
+                ['name','url_key'],
                 \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_FULLTEXT
             );
         }

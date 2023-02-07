@@ -107,7 +107,7 @@ class Content extends Template
     public function getPreview($id): string
     {
         $post = $this->postRepository->getById($id);
-        return mb_strimwidth($post->getPostContent(), 0, 255) . "...";
+        return mb_substr ($post->getPostContent(), 0, 100) . "...";
     }
 
     private function hidePostById(&$collection, $id)

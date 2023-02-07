@@ -33,9 +33,9 @@
             <item name="js_config" xsi:type="array">
                 <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
             </item>
-<!--            <item name="config" xsi:type="array">-->
-<!--                <item name="submit_url" xsi:type="url" path="*/*/save"/>-->
-<!--            </item>-->
+            <!--            <item name="config" xsi:type="array">-->
+            <!--                <item name="submit_url" xsi:type="url" path="*/*/save"/>-->
+            <!--            </item>-->
         </argument>
         <settings>
             <submitUrl path="*/*/save"/>
@@ -79,7 +79,7 @@
                     <item name="visible" xsi:type="boolean">true</item>
                     <item name="dataType" xsi:type="string">text</item>
                     <item name="formElement" xsi:type="string">textarea</item>
-                    <item name="rows" xsi:type="number">4цфкву0</item>
+                    <item name="rows" xsi:type="number">20</item>
                 </item>
             </argument>
         </field>
@@ -92,26 +92,6 @@
                     <item name="dataType" xsi:type="string">text</item>
                     <item name="label" translate="true" xsi:type="string">Categories</item>
                     <item name="formElement" xsi:type="string">multiselect</item>
-<!--                    <item name="additionalClasses" xsi:type="string">required</item>-->
-
-<!--                    <item name="componentType" xsi:type="string">field</item>-->
-
-<!--                    <item name="component" xsi:type="string">Magento_Catalog/js/components/new-category</item>-->
-<!--                    <item name="elementTmpl" xsi:type="string">ui/grid/filters/elements/ui-select</item>-->
-<!--                                        <item name="dataScope" xsi:type="string">category_id</item>-->
-<!--                                        <item name="filterOptions" xsi:type="boolean">true</item>-->
-<!--                    <item name="showCheckbox" xsi:type="boolean">true</item>-->
-<!--                    <item name="disableLabel" xsi:type="boolean">true</item>-->
-<!--                    <item name="multiple" xsi:type="boolean">true</item>-->
-<!--                    <item name="levelsVisibility" xsi:type="number">1</item>-->
-<!--                    <item name="sortOrder" xsi:type="number">70</item>-->
-<!--                    <item name="required" xsi:type="boolean">true</item>-->
-<!--                    <item name="validation" xsi:type="array">-->
-<!--                        <item name="required-entry" xsi:type="boolean">false</item>-->
-<!--                    </item>-->
-<!--                    <item name="listens" xsi:type="array">-->
-<!--                        <item name="${ $.namespace }.${ $.namespace }:responseData" xsi:type="string">setParsed</item>-->
-<!--                    </item>-->
                 </item>
             </argument>
         </field>
@@ -123,25 +103,6 @@
                     <item name="dataType" xsi:type="string">text</item>
                     <item name="label" translate="true" xsi:type="string">Tags</item>
                     <item name="formElement" xsi:type="string">multiselect</item>
-
-
-<!--                    <item name="additionalClasses" xsi:type="string">required</item>-->
-
-<!--                    <item name="componentType" xsi:type="string">field</item>-->
-
-<!--                    <item name="component" xsi:type="string">Magento_Ui/js/form/element/ui-select</item>-->
-<!--                    <item name="elementTmpl" xsi:type="string">ui/grid/filters/elements/ui-select</item>-->
-<!--&lt;!&ndash;                    <item name="dataScope" xsi:type="string">options_list</item>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <item name="filterOptions" xsi:type="boolean">true</item>&ndash;&gt;-->
-<!--                    <item name="showCheckbox" xsi:type="boolean">true</item>-->
-<!--                    <item name="disableLabel" xsi:type="boolean">true</item>-->
-<!--                    <item name="multiple" xsi:type="boolean">true</item>-->
-<!--                    <item name="levelsVisibility" xsi:type="number">1</item>-->
-<!--                    <item name="sortOrder" xsi:type="number">70</item>-->
-<!--                    <item name="required" xsi:type="boolean">true</item>-->
-<!--                    <item name="validation" xsi:type="array">-->
-<!--                        <item name="required-entry" xsi:type="boolean">false</item>-->
-<!--                    </item>-->
                 </item>
             </argument>
         </field>

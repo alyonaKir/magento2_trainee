@@ -1,23 +1,7 @@
 <?php
-/**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
-
-// @codingStandardsIgnoreFile
-
-?>
-<?php
 /** @var Magento\Framework\View\Element\Template $block */
 $categories = $block->getCategories();
-/**
- * Top menu for store
- *
- * @var $block \Magento\Theme\Block\Html\Topmenu
- */
 ?>
-<?php $columnsLimit = $block->getColumnsLimit() ?: 0; ?>
-<?php $_menu = $block->getHtml('level-top', 'submenu', $columnsLimit) ?>
 
 <nav class="navigation" data-action="navigation">
     <ul id="menu"
@@ -28,18 +12,18 @@ $categories = $block->getCategories();
                 All posts
             </a>
         </li>
-        <li class="level0 level-top parent ui-menu-item">Categories &#9660
-            <ul class="level0 submenu ui-menu ui-widget ui-widget-content ui-corner-all">
-                <?php foreach ($categories->getItems() as $category): ?>
-                    <li class="ui-menu-item">
-                        <a href="https://<?php echo $_SERVER['HTTP_HOST'] ?>/blog/<?php echo $category->getName(); ?>">
-                            <?php echo $category->getName(); ?>
-                        </a>
-                    </li>
-                <?php endforeach; ?>
-
-            </ul>
+        <li class="level0 level-top parent ui-menu-item">Categories &#9658
         </li>
+
+        <?php foreach ($categories->getItems() as $category): ?>
+            <li class="level0 level-top parent ui-menu-item">
+                <a class="level-top"
+                    href="https://<?php echo $_SERVER['HTTP_HOST'] ?>/blog/<?php echo $category->getName(); ?>">
+                    <?php echo $category->getName(); ?>
+                </a>
+            </li>
+        <?php endforeach; ?>
+
     </ul>
 
 </nav>
