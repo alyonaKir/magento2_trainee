@@ -1,5 +1,6 @@
 <?php /** @var Magento\Framework\View\Element\Template $block */
 $productColl = $block->getProductCollection();
+
 if ($block->getPagerHtml() && count($productColl)>=1): ?>
 
     <div class="order-products-toolbar toolbar bottom"><?php echo $block->getPagerHtml(); ?></div>
@@ -69,3 +70,5 @@ if ($block->getPagerHtml() && count($productColl)>=1): ?>
     </ul>
     <?php endif ?>
 <?php endif ?>
+
+

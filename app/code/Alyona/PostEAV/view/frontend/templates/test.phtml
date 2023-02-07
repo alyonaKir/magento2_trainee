@@ -1,0 +1,5 @@
+<?php /** @var Alyona\PostEAV\Block\Widget\Tags $block */?>
+<div class="tag_widget columns">
+    <?php
+    echo $this->getLayout()->createBlock("Alyona\PostEAV\Block\Widget\Tags")->setData("tags", $block->returnTagsAsString())->toHtml(); ?>
+</div>

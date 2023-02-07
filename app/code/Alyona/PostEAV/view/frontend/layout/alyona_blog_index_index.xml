@@ -1,11 +1,12 @@
 <?xml version="1.0"?>
-<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <head>
         <css src="Alyona_PostEAV::styles/blog.css"/>
         <title>Blog</title>
     </head>
     <body>
-        <referenceContainer name="logo" remove="true" />
+        <referenceContainer name="logo" remove="true"/>
         <referenceContainer name="header.container">
             <referenceBlock name="top.search" remove="true"/>
             <referenceBlock name="minicart" remove="true"/>
@@ -15,32 +16,30 @@
                    cacheable="false"
             />
         </referenceContainer>
+        <referenceBlock name="catalog.compare.sidebar" remove="true"/>
+        <referenceBlock name="wishlist_sidebar" remove="true" />
+        <referenceBlock name="sidebar.additional">
+            <block name="alyona_blog_widget"
+                   class="Alyona\PostEAV\Block\Widget\Tags"
+                   template="Alyona_PostEAV::test.phtml"
+                   cacheable="false"
+            />
+        </referenceBlock>
 
-<!--        <referenceContainer name="navigation.sections">-->
-<!--            <block class="Alyona\PostEAV\Block\Navigation"-->
-<!--                               name="alyona_blog_nav"-->
-<!--                               template="Alyona_PostEAV::nav_category.phtml"-->
-<!--                               cacheable="false"-->
-<!--                        />-->
-<!--        </referenceContainer>-->
-
-<!--        <referenceContainer name="page.top">-->
-<!--            <container name="below.nav.topbar" label="Before Main Columns" htmlTag="div" htmlClass="topbar" before="breadcrumbs">-->
-<!--                <block class="Magento\Cms\Block\Block" name="topbar">-->
-<!--&lt;!&ndash;                    <arguments>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <argument name="block_id" xsi:type="string">topbar</argument>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </arguments>&ndash;&gt;-->
-<!--                </block>-->
-<!--            </container>-->
-<!--        </referenceContainer>-->
-
-        <referenceBlock name="sidebar.main" remove="true"/>
-        <referenceBlock name="sidebar.additional" remove="true"/>
+<!--        <referenceBlock name="sidebar.main"/>-->
+<!--        <referenceBlock name="sidebar.additional" remove="true"/>-->
         <referenceBlock name="page.main.title">
             <action method="setPageTitle">
                 <argument name="title" xsi:type="string">Blog</argument>
             </action>
         </referenceBlock>
+
+        <block class="Alyona\PostEAV\Block\Widget\Tags" name="alyona_posteav_tags" template="widget/tags.phtml">
+            <action method="setData">
+                <argument name="widgettitle" xsi:type="string">category</argument>
+                <argument name="widgetcontent" xsi:type="string">Demo Category Title</argument>
+            </action>
+        </block>
         <referenceBlock name="content">
             <block class="Alyona\PostEAV\Block\Content"
                    name="alyona_blog_content"
@@ -48,5 +47,7 @@
                    cacheable="false"
             />
         </referenceBlock>
+
+
     </body>
 </page>

@@ -55,3 +55,11 @@ ul {
     font-weight: bold;
     padding: 0 3px;
 }
+
+.tag_widget{
+    float:left;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border: 1px solid #ccc;
+}

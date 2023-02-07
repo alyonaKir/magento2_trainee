@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget class="Alyona\PostEAV\Block\Widget\Tags" id="alyona_posteav_tags">
+        <label>TagCloud</label>
+        <description>Tags</description>
+        <parameters>
+            <parameter name="tags" sort_order="20" visible="true" xsi:type="text">
+                <label>Tags</label>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>
