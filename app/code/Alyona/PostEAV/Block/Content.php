@@ -70,9 +70,8 @@ class Content extends Template
         if ($this->getUrlKey()!="" && !$this->isPost()) {
             foreach ($collection as $item) {
                 foreach ($this->getCategories($item->getId()) as $category) {
-                    if ($category == $this->getUrlKey() && count($this->getCategories($item->getId()))>=1) {
+                    if($this->check_categories($this->getCategories($item->getId()), $this->getUrlKey())) {
                         $flag = 1;
-                        break;
                     }
                 }
                 if ($flag!=1) {
@@ -146,4 +145,16 @@ class Content extends Template
         }
         return array_pop($buff_arr);
     }
+
+    private function check_categories($categories, $url_key):bool
+    {
+        foreach ($categories as $category) {
+            if($category->getUrlKey() == $url_key){
+               return true;
+            }
+        }
+        return false;
+    }
 }
+
+

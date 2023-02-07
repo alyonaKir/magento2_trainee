@@ -12,13 +12,10 @@ $categories = $block->getCategories();
                 All posts
             </a>
         </li>
-        <li class="level0 level-top parent ui-menu-item">Categories &#9658
-        </li>
-
         <?php foreach ($categories->getItems() as $category): ?>
             <li class="level0 level-top parent ui-menu-item">
                 <a class="level-top"
-                    href="https://<?php echo $_SERVER['HTTP_HOST'] ?>/blog/<?php echo $category->getName(); ?>">
+                    href="https://<?php echo $_SERVER['HTTP_HOST'] ?>/blog/<?php echo $category->getUrlKey(); ?>">
                     <?php echo $category->getName(); ?>
                 </a>
             </li>

@@ -51,7 +51,7 @@ class Parser implements ArgumentInterface
             for ($i = 0; $i < count($categories_arr); $i++) {
                 try {
                     $category = $this->categoryRepository->getById((int)$categories_arr[$i]);
-                    $result[] = $category->getName();
+                    $result[] = $category;
                 } catch (NoSuchEntityException $exception) {
                 }
             }
