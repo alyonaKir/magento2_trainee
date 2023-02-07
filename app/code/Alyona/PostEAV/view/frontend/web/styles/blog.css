@@ -61,5 +61,7 @@ ul {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    border: 1px solid #ccc;
+    background-color: rgba(0,0,0,0.05);
+    padding: 10px;
+    border-radius: 60px;
 }
