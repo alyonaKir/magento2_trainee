@@ -7,6 +7,7 @@ use Magento\Ui\DataProvider\AbstractDataProvider;
 
 class DataProvider extends AbstractDataProvider
 {
+
     /**
      * @param string $name
      * @param string $primaryFieldName
@@ -42,4 +43,5 @@ class DataProvider extends AbstractDataProvider
 
         return $this->loadedData;
     }
+
 }

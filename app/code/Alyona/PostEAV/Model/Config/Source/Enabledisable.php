@@ -9,12 +9,16 @@ class Enabledisable implements ArrayInterface
     {
         $options = [
             0 => [
-                'label' => 'Active',
+                'label' => 'Enable',
                 'value' => 1
             ],
             1 => [
-                'label' => 'Deactive',
+                'label' => 'Disable',
                 'value' => 0
+            ],
+            2 => [
+                'label' => 'Scheduled',
+                'value' => 2
             ]
         ];
         return $options;

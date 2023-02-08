@@ -14,6 +14,7 @@ interface PostInterface
     const STATUS = 'status';
     const CREATED_AT= 'created_at';
     const UPDATED_AT= 'updated_at';
+    const PUBLISH_DATE= 'publish_date';
 
     /**
      * @return mixed|null
@@ -34,13 +35,15 @@ interface PostInterface
     public function getStatus();
     public function getCreatedAt();
     public function getUpdatedAt();
+    public function getPublishDate();
 
     public function setTitle(string $title);
     public function setUrlKey(string $urlKey);
     public function setContent(string $content);
     public function setTags(string $tags);
     public function setCategoryId(string $category);
-    public function setStatus(bool $status);
+    public function setStatus(int $status);
     public function setCreatedAt($createdAt);
     public function setUpdatedAt($updatedAt);
+    public function setPublishDate($publishDate);
 }

@@ -99,7 +99,7 @@ class Post extends \Magento\Framework\Model\AbstractModel implements \Magento\Fr
         $this->setData(PostInterface::CATEGORY_ID, $category);
     }
 
-    public function setStatus(bool $status)
+    public function setStatus(int $status)
     {
         $this->setData(PostInterface::STATUS, $status);
     }
@@ -114,4 +114,13 @@ class Post extends \Magento\Framework\Model\AbstractModel implements \Magento\Fr
         $this->setData(PostInterface::UPDATED_AT, $updatedAt);
     }
 
+    public function getPublishDate()
+    {
+        return $this->getData(PostInterface::PUBLISH_DATE);
+    }
+
+    public function setPublishDate($publishDate)
+    {
+        $this->setData(PostInterface::PUBLISH_DATE, $publishDate);
+    }
 }

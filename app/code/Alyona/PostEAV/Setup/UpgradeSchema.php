@@ -95,6 +95,13 @@ class UpgradeSchema implements UpgradeSchemaInterface
                         ['nullable' => false, 'default' => \Magento\Framework\DB\Ddl\Table::TIMESTAMP_INIT_UPDATE],
                         'Updated At'
                     )
+                    ->addColumn(
+                        'publish_date',
+                        \Magento\Framework\DB\Ddl\Table::TYPE_DATE,
+                        null,
+                        ['nullable' => true],
+                        'Publish date'
+                    )
                     ->setComment('Post Table');
                 $installer->getConnection()->createTable($table);
 

@@ -35,7 +35,6 @@ class Index extends Action
 
     public function execute()
     {
-//        $this->getIdByUrlKey();
 
         $resultPage = $this->resultPageFactory->create();
         $resultPage->getConfig()->getTitle()->set(__('Blog'));

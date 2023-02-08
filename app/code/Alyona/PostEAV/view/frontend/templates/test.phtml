@@ -1,5 +1,9 @@
 <?php /** @var Alyona\PostEAV\Block\Widget\Tags $block */?>
 <div class="tag_widget columns">
+    <h2>Tags Cloud</h2>
     <?php
-    echo $this->getLayout()->createBlock("Alyona\PostEAV\Block\Widget\Tags")->setData("tags", $block->returnTagsAsString())->toHtml(); ?>
+    $test = $this->getLayout()->createBlock("Alyona\PostEAV\Block\Widget\Tags")->setData("tags", $block->returnOptions());
+    foreach ($test->getData('tags') as $item) { ?>
+        <a href="https://<?php echo $_SERVER['HTTP_HOST']?>/blog/?tag=<?php echo $item['label']; ?>"><?php echo $item['label']; ?></a>
+   <?php }?>
 </div>

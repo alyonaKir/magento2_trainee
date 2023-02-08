@@ -54,6 +54,17 @@ class TagRepository implements TagRepositoryInterface
         return $object;
     }
 
+    public function getByName(string $name): int
+    {
+        $tags = $this->get();
+        foreach ($tags->getItems() as $tag) {
+            if ($tag->getName()==$name) {
+                return $tag->getId();
+            }
+        }
+        throw new NoSuchEntityException(__('Unable to find entity with ID "%1"', $tag));
+    }
+
     public function get()
     {
         $searchCriteria = $this->searchCriteriaBuilder->create();

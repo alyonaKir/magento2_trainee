@@ -49,20 +49,6 @@ class Action extends Column
      */
     public function prepareDataSource(array $dataSource)
     {
-//        if (isset($dataSource['data']['items'])) {
-//            foreach ($dataSource['data']['items'] as &$item) {
-//                $name = $this->getData('name');
-//                if (isset($item['post_id'])) {
-//                    $item[$name]['edit'] = [
-//                        'href' => $this->_urlBuilder->getUrl(
-//                            $this->_editUrl,
-//                            ['id' => $item['post_id']]
-//                        ),
-//                        'label' => __('Edit'),
-//                    ];
-//                }
-//            }
-//        }
 
         if (isset($dataSource['data']['items'])) {
             foreach ($dataSource['data']['items'] as & $item) {
@@ -82,6 +68,13 @@ class Action extends Column
                                 ['id' => $item['post_id']]
                             ),
                             'label' => __('Delete')
+                        ],
+                        'publish' => [
+                            'href' => $this->_urlBuilder->getUrl(
+                                'posteav/post/publish',
+                                ['id' => $item['post_id']]
+                            ),
+                            'label' => __('Publish')
                         ]
                     ];
                 }

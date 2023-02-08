@@ -57,11 +57,20 @@ ul {
 }
 
 .tag_widget{
-    float:left;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     background-color: rgba(0,0,0,0.05);
-    padding: 10px;
+    padding: 10px 20px 20px 20px;
     border-radius: 60px;
+}
+A, A:active {
+    color: #000000;
+    text-decoration: none;
+}
+A:visited {
+    color: rgba(97,97,97,0.9);
+}
+a:hover {
+    text-decoration: none;
 }
