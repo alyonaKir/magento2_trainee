@@ -24,6 +24,11 @@
                    template="Alyona_PostEAV::test.phtml"
                    cacheable="false"
             />
+            <block name="alyona_blog_categoryList"
+                   class="Alyona\PostEAV\Block\Widget\CategoryList"
+                   template="Alyona_PostEAV::categoryList.phtml"
+                   cacheable="false"
+            />
         </referenceBlock>
 
 <!--        <referenceBlock name="sidebar.main"/>-->

@@ -63,6 +63,7 @@ ul {
     background-color: rgba(0,0,0,0.05);
     padding: 10px 20px 20px 20px;
     border-radius: 60px;
+    margin: 20px;
 }
 A, A:active {
     color: #000000;
@@ -74,3 +75,4 @@ A:visited {
 a:hover {
     text-decoration: none;
 }
+

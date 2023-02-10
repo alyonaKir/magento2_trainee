@@ -20,12 +20,6 @@
             <item name="save" xsi:type="string">Alyona\PostEAV\Block\Adminhtml\Buttons\Save</item>
             <item name="delete" xsi:type="string">Alyona\PostEAV\Block\Adminhtml\Buttons\Delete</item>
 
-            <item name="schedul" xsi:type="array">
-                <item name="name" xsi:type="string">Schedul</item>
-                <item name="label" xsi:type="string" translate="true">Schedul</item>
-<!--                <item name="class" xsi:type="string">back</item>-->
-                <item name="url" xsi:type="string">*/*/schedul</item>
-            </item>
         </item>
     </argument>
 
@@ -134,48 +128,6 @@
                 </checkbox>
             </formElements>
         </field>
-
-<!--        <radioset name="status">-->
-<!--            <argument name="data" xsi:type="array">-->
-<!--                <item name="config" xsi:type="array"/>-->
-<!--            </argument>-->
-<!--            <settings>-->
-<!--                <label translate="true">Status</label>-->
-<!--                <options>-->
-<!--                    <option name="0" xsi:type="array">-->
-<!--                        <item name="value" xsi:type="number">1</item>-->
-<!--                        <item name="label" xsi:type="string" translate="true">Enable</item>-->
-<!--                    </option>-->
-<!--                    <option name="1" xsi:type="array">-->
-<!--                        <item name="value" xsi:type="number">0</item>-->
-<!--                        <item name="label" xsi:type="string" translate="true">Disable</item>-->
-<!--                    </option>-->
-<!--                    <option name="2" xsi:type="array">-->
-<!--                        <item name="value" xsi:type="number">-1</item>-->
-<!--                        <item name="label" xsi:type="string" translate="true">Scheduled</item>-->
-
-
-<!--                    </option>-->
-<!--                </options>-->
-<!--            </settings>-->
-<!--        </radioset>-->
-
-<!--        <field name="publish_date" formElement="date">-->
-<!--            <argument name="data" xsi:type="array">-->
-<!--                <item name="config" xsi:type="array">-->
-<!--                    &lt;!&ndash;                    <item name="source" xsi:type="string">publish_date</item>&ndash;&gt;-->
-<!--                </item>-->
-<!--            </argument>-->
-<!--            <settings>-->
-<!--                <validation>-->
-<!--                    <rule name="validate-date" xsi:type="boolean">true</rule>-->
-<!--                </validation>-->
-<!--                <dataType>text</dataType>-->
-<!--                <label translate="true">Publish Date</label>-->
-<!--                <visible>true</visible>-->
-<!--                &lt;!&ndash;                <dataScope>publish_date</dataScope>&ndash;&gt;-->
-<!--            </settings>-->
-<!--        </field>-->
 
     </fieldset>
 </form>

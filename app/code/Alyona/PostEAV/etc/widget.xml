@@ -10,4 +10,13 @@
             </parameter>
         </parameters>
     </widget>
+    <widget class="Alyona\PostEAV\Block\Widget\CategoryList" id="alyona_posteav_categoryList">
+        <label>Category List</label>
+        <description>Categories</description>
+        <parameters>
+            <parameter name="tags" sort_order="20" visible="true" xsi:type="text">
+                <label>Categories</label>
+            </parameter>
+        </parameters>
+    </widget>
 </widgets>

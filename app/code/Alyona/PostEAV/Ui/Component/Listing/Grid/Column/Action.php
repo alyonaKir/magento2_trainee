@@ -69,12 +69,12 @@ class Action extends Column
                             ),
                             'label' => __('Delete')
                         ],
-                        'publish' => [
+                        'schedule' => [
                             'href' => $this->_urlBuilder->getUrl(
-                                'posteav/post/publish',
+                                'posteav/post/schedul',
                                 ['id' => $item['post_id']]
                             ),
-                            'label' => __('Publish')
+                            'label' => __('Schedul')
                         ]
                     ];
                 }

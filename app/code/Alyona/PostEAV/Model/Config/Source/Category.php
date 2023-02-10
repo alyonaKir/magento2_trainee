@@ -40,7 +40,7 @@ class Category implements ArrayInterface
             if ($label['status']) {
                 $result[] = [
                     'value' => $label['category_id'],
-                    'label' => $label['name'],
+                    'label' => $label['name']
                 ];
             }
         }

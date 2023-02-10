@@ -43,6 +43,13 @@
                 <label translate="true">Delete</label>
             </settings>
         </action>
+        <action name="publish">
+            <settings>
+                <url path="posteav/post/masspublish"/>
+                <type>publish</type>
+                <label translate="true">Publish</label>
+            </settings>
+        </action>
     </massaction>
 
     <columns name="spinner_columns">

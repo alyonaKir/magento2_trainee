@@ -2,6 +2,7 @@
 
 namespace Alyona\PostEAV\Controller\Adminhtml\Category;
 
+use _PHPStan_503e82092\Nette\Neon\Exception;
 use Alyona\PostEAV\Model\Category;
 use Magento\Backend\App\Action\Context;
 
@@ -83,7 +84,7 @@ class Save extends \Magento\Backend\App\Action
         $categories = $this->categoryRepository->get();
         $count = 0;
         foreach ($categories->getItems() as $category) {
-            if ($category->getName() == $name) {
+            if (strtolower($category->getName()) == strtolower($name)) {
                 $count++;
             }
         }
@@ -91,7 +92,7 @@ class Save extends \Magento\Backend\App\Action
         if ($count==0) {
             $urlKey = str_replace(" ", "-", strtolower($name));
         } else {
-            $urlKey = str_replace(" ", "-", strtolower($name)) . '-' . $count;
+            throw new \Exception("This category already exist.");
         }
         return $urlKey;
     }
