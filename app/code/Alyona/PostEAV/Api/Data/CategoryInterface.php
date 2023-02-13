@@ -23,16 +23,58 @@ interface CategoryInterface
      */
     public function setId(int $id);
 
+    /**
+     * @return mixed
+     */
     public function getName();
+
+    /**
+     * @return mixed
+     */
     public function getUrlKey();
 
+    /**
+     * @return mixed
+     */
     public function getStatus();
+
+    /**
+     * @return mixed
+     */
     public function getCreatedAt();
+
+    /**
+     * @return mixed
+     */
     public function getUpdatedAt();
 
+    /**
+     * @param string $name
+     * @return mixed
+     */
     public function setname(string $name);
+
+    /**
+     * @param string $urlKey
+     * @return mixed
+     */
     public function setUrlKey(string $urlKey);
+
+    /**
+     * @param bool $status
+     * @return mixed
+     */
     public function setStatus(bool $status);
+
+    /**
+     * @param $createdAt
+     * @return mixed
+     */
     public function setCreatedAt($createdAt);
+
+    /**
+     * @param $updatedAt
+     * @return mixed
+     */
     public function setUpdatedAt($updatedAt);
 }

@@ -29,4 +29,63 @@
             <resource ref="anonymous"/>
         </resources>
     </route>
+
+
+    <route url="/V1/module/tags" method="POST">
+        <service class="Alyona\PostEAV\Api\TagRepositoryInterface"
+                 method="save"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/module/tags/:id" method="DELETE">
+        <service class="Alyona\PostEAV\Api\TagRepositoryInterface"
+                 method="deleteById"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/module/tags/:id" method="GET">
+        <service class="Alyona\PostEAV\Api\TagRepositoryInterface"
+                 method="getById"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/module/tags" method="GET">
+        <service class="Alyona\PostEAV\Api\TagRepositoryInterface"
+                 method="getList"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+
+    <route url="/V1/module/categories" method="POST">
+        <service class="Alyona\PostEAV\Api\CategoryRepositoryInterface"
+                 method="save"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/module/categories/:id" method="DELETE">
+        <service class="Alyona\PostEAV\Api\CategoryRepositoryInterface"
+                 method="deleteById"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/module/categories/:id" method="GET">
+        <service class="Alyona\PostEAV\Api\CategoryRepositoryInterface"
+                 method="getById"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/module/categories" method="GET">
+        <service class="Alyona\PostEAV\Api\CategoryRepositoryInterface"
+                 method="getList"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
 </routes>

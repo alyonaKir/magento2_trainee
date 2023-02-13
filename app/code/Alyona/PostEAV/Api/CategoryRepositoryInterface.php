@@ -9,26 +9,29 @@ interface CategoryRepositoryInterface
 {
     /**
      * @param int $id
-     * @return CategoryInterface
+     * @return \Alyona\PostEAV\Api\Data\CategoryInterface
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function getById(int $id): CategoryInterface;
+    /**
+     * @return \Alyona\PostEAV\Api\CategorySearchResultInterface
+     */
     public function get();
 
     /**
      * @param SearchCriteriaInterface $searchCriteria
-     * @return CategorySearchResultInterface
+     * @return \Alyona\PostEAV\Api\CategorySearchResultInterface
      */
     public function getList(SearchCriteriaInterface $searchCriteria = null): CategorySearchResultInterface;
 
     /**
-     * @param CategoryInterface $category
-     * @return CategoryInterface
+     * @param \Alyona\PostEAV\Api\Data\CategoryInterface $category
+     * @return \Alyona\PostEAV\Api\Data\CategoryInterface
      */
     public function save(CategoryInterface $category): CategoryInterface;
 
     /**
-     * @param CategoryInterface $category
+     * @param \Alyona\PostEAV\Api\Data\CategoryInterface $category
      * @return bool
      */
     public function delete(CategoryInterface $category): bool;

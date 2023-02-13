@@ -10,7 +10,7 @@ interface TagSearchResultInterface  extends \Magento\Framework\Api\SearchResults
     public function getItems();
 
     /**
-     * @param \Alyona\PostEAV\Api\Data\TagInterface[]
+     * @param \Alyona\PostEAV\Api\Data\TagInterface[] $items
      * @return void
      */
     public function setItems(array $items);

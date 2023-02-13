@@ -10,7 +10,7 @@ interface CategorySearchResultInterface extends \Magento\Framework\Api\SearchRes
     public function getItems();
 
     /**
-     * @param \Alyona\PostEAV\Api\Data\CategoryInterface[]
+     * @param \Alyona\PostEAV\Api\Data\CategoryInterface[] $items
      * @return void
      */
     public function setItems(array $items);

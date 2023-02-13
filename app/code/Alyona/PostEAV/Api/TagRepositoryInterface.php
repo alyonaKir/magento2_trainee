@@ -9,26 +9,30 @@ interface TagRepositoryInterface
 {
     /**
      * @param int $id
-     * @return TagInterface
+     * @return \Alyona\PostEAV\Api\Data\TagInterface
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function getById(int $id): TagInterface;
+
+    /**
+     * @return \Alyona\PostEAV\Api\TagSearchResultInterface
+     */
     public function get();
 
     /**
      * @param SearchCriteriaInterface $searchCriteria
-     * @return TagSearchResultInterface
+     * @return \Alyona\PostEAV\Api\TagSearchResultInterface
      */
     public function getList(SearchCriteriaInterface $searchCriteria = null): TagSearchResultInterface;
 
     /**
-     * @param TagInterface $tag
-     * @return TagInterface
+     * @param \Alyona\PostEAV\Api\Data\TagInterface $tag
+     * @return \Alyona\PostEAV\Api\Data\TagInterface
      */
     public function save(TagInterface $tag): TagInterface;
 
     /**
-     * @param TagInterface $tag
+     * @param \Alyona\PostEAV\Api\Data\TagInterface $tag
      * @return bool
      */
     public function delete(TagInterface $tag): bool;

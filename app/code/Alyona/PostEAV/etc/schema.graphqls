@@ -1,0 +1,13 @@
+#Magento Post GraphQl Schema
+type Query {
+    testpost: Testpost @resolver(class: "Alyona\\PostEAV\\Model\\Resolver\\Post") @doc(description: "The testpost query returns information about a post")
+}
+type Testpost @doc(description: "Testpost defines the post title and other details") {
+    post_id: Int
+    title: String
+    url_key: String
+    post_content: String
+    status: String
+    created_at: String
+    updated_at: String
+}
