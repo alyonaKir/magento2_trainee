@@ -2,6 +2,8 @@
 
 namespace Alyona\PostEAV\Api;
 
+use Alyona\PostEAV\Api\Data\PostInterface;
+
 interface PostSearchResultInterface extends \Magento\Framework\Api\SearchResultsInterface
 {
     /**
@@ -10,7 +12,7 @@ interface PostSearchResultInterface extends \Magento\Framework\Api\SearchResults
     public function getItems();
 
     /**
-     * @param \Alyona\PostEAV\Api\Data\PostInterface[]
+     * @param \Alyona\PostEAV\Api\Data\PostInterface[] $items
      * @return void
      */
     public function setItems(array $items);

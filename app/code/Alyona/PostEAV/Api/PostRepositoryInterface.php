@@ -5,33 +5,44 @@ namespace Alyona\PostEAV\Api;
 
 use Alyona\PostEAV\Api\Data\PostInterface;
 use Magento\Framework\Api\SearchCriteriaInterface;
+use Magento\Framework\Exception\NoSuchEntityException;
 
 
 interface PostRepositoryInterface
 {
     /**
      * @param int $id
-     * @return PostInterface
-     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     * @return \Alyona\PostEAV\Api\Data\PostInterface
+     * @throws NoSuchEntityException
      */
     public function getById(int $id): PostInterface;
-    public function getByTitle(string $url_key): int;
-    public function get();
 
     /**
-     * @param SearchCriteriaInterface $searchCriteria
-     * @return PostSearchResultInterface
+     * @param string $url_key
+     * @return int
+     * @throws NoSuchEntityException
+     */
+    public function getByTitle(string $url_key): int;
+
+    /**
+     * @return \Alyona\PostEAV\Api\PostSearchResultInterface
+     */
+    public function get(): PostSearchResultInterface;
+
+    /**
+     * @param SearchCriteriaInterface|null $searchCriteria
+     * @return \Alyona\PostEAV\Api\PostSearchResultInterface
      */
     public function getList(SearchCriteriaInterface $searchCriteria = null): PostSearchResultInterface;
 
     /**
-     * @param PostInterface $productTypes
-     * @return PostInterface
+     * @param \Alyona\PostEAV\Api\Data\PostInterface $post
+     * @return \Alyona\PostEAV\Api\Data\PostInterface
      */
     public function save(PostInterface $post): PostInterface;
 
     /**
-     * @param PostInterface $post
+     * @param \Alyona\PostEAV\Api\Data\PostInterface $post
      * @return bool
      */
     public function delete(PostInterface $post): bool;

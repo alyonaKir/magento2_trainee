@@ -27,4 +27,8 @@
             <argument name="resourceModel" xsi:type="string">Alyona\PostEAV\Model\ResourceModel\Category\Category</argument>
         </arguments>
     </virtualType>
+
+    <preference for="Alyona\PostEAV\Api\Data\PostInterface" type="Alyona\PostEAV\Model\Post"/>
+    <preference for="Alyona\PostEAV\Api\PostRepositoryInterface" type="Alyona\PostEAV\Model\PostRepository"/>
+    <preference for="Alyona\PostEAV\Api\PostSearchResultInterface" type="Alyona\PostEAV\Model\PostSearchResult"/>
 </config>

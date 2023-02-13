@@ -5,6 +5,7 @@ namespace Alyona\PostEAV\Model;
 use Alyona\PostEAV\Api\Data\PostInterface;
 use Alyona\PostEAV\Api\PostRepositoryInterface;
 use Alyona\PostEAV\Api\PostSearchResultInterface;
+use Alyona\PostEAV\Api\PostSearchResultInterfaceFactory;
 use Alyona\PostEAV\Model\ResourceModel\Post\Grid\CollectionFactory;
 use Alyona\PostEAV\Model\ResourceModel\Post\Post as PostResource;
 use Magento\Framework\Api\SearchCriteriaBuilder;
@@ -19,20 +20,20 @@ class PostRepository implements PostRepositoryInterface
     private PostResource $postResource;
     private PostFactory $postFactory;
     private SearchCriteriaBuilder $searchCriteriaBuilder;
-    private PostSearchResultFactory $searchResultFactory;
+    private PostSearchResultInterfaceFactory $searchResultFactory;
 
     /**
      * @param PostFactory $postFactory
      * @param CollectionFactory $collectionFactory
      * @param PostResource $postResource
-     * @param PostSearchResultInterfaceFactory $searchResultInterfaceFactory
+     * @param PostSearchResultInterfaceFactory $searchResultFactory
      * @param SearchCriteriaBuilder $searchCriteriaBuilder
      */
     public function __construct(
         PostFactory $postFactory,
         CollectionFactory $collectionFactory,
         PostResource  $postResource,
-        PostSearchResultFactory $searchResultFactory,
+        PostSearchResultInterfaceFactory $searchResultFactory,
         SearchCriteriaBuilder $searchCriteriaBuilder
     ) {
         $this->postFactory = $postFactory;
@@ -52,6 +53,10 @@ class PostRepository implements PostRepositoryInterface
         return $object;
     }
 
+    /**
+     * @throws NoSuchEntityException
+     * @throws LocalizedException
+     */
     public function getByTitle(string $url_key): int
     {
         $posts = $this->get();
@@ -60,13 +65,10 @@ class PostRepository implements PostRepositoryInterface
                 return $post->getId();
             }
         }
-        throw new NoSuchEntityException(__('Unable to find entity with ID "%1"', $post));
+        throw new NoSuchEntityException(__('Unable to find entity with ID "%1"', $url_key));
     }
 
-    /**
-     * @throws LocalizedException
-     */
-    public function get()
+    public function get(): PostSearchResultInterface
     {
         $searchCriteria = $this->searchCriteriaBuilder->create();
         return $this->getList($searchCriteria);
@@ -110,6 +112,10 @@ class PostRepository implements PostRepositoryInterface
         return true;
     }
 
+    /**
+     * @throws NoSuchEntityException
+     * @throws StateException
+     */
     public function deleteById(int $id): bool
     {
         return $this->delete($this->getById($id));

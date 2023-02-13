@@ -27,23 +27,102 @@ interface PostInterface
      */
     public function setId(int $id);
 
+    /**
+     * @return mixed
+     */
     public function getTitle();
+
+    /**
+     * @return mixed
+     */
     public function getUrlKey();
+
+    /**
+     * @return mixed
+     */
     public function getPostContent();
+
+    /**
+     * @return mixed
+     */
     public function getTags();
+
+    /**
+     * @return mixed
+     */
     public function getCategoryId();
+
+    /**
+     * @return mixed
+     */
     public function getStatus();
+
+    /**
+     * @return mixed
+     */
     public function getCreatedAt();
+
+    /**
+     * @return mixed
+     */
     public function getUpdatedAt();
+
+    /**
+     * @return mixed
+     */
     public function getPublishDate();
 
+    /**
+     * @param string $title
+     * @return mixed
+     */
     public function setTitle(string $title);
+
+    /**
+     * @param string $urlKey
+     * @return mixed
+     */
     public function setUrlKey(string $urlKey);
+
+    /**
+     * @param string $content
+     * @return mixed
+     */
     public function setContent(string $content);
+
+    /**
+     * @param string $tags
+     * @return mixed
+     */
     public function setTags(string $tags);
+
+    /**
+     * @param string $category
+     * @return mixed
+     */
     public function setCategoryId(string $category);
+
+    /**
+     * @param int $status
+     * @return mixed
+     */
     public function setStatus(int $status);
+
+    /**
+     * @param $createdAt
+     * @return mixed
+     */
     public function setCreatedAt($createdAt);
+
+    /**
+     * @param $updatedAt
+     * @return mixed
+     */
     public function setUpdatedAt($updatedAt);
+
+    /**
+     * @param $publishDate
+     * @return mixed
+     */
     public function setPublishDate($publishDate);
 }
