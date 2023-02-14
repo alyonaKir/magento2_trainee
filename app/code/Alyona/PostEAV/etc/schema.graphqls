@@ -1,13 +1,24 @@
-#Magento Post GraphQl Schema
 type Query {
-    testpost: Testpost @resolver(class: "Alyona\\PostEAV\\Model\\Resolver\\Post") @doc(description: "The testpost query returns information about a post")
+    getRecords : [getAllRecords] @resolver( class: "Alyona\\PostEAV\\Model\\Resolver\\Post") @doc(description: "Get All  Records"),
+    getCategories: [getAllCategories] @resolver( class: "Alyona\\PostEAV\\Model\\Resolver\\Category")
 }
-type Testpost @doc(description: "Testpost defines the post title and other details") {
-    post_id: Int
-    title: String
-    url_key: String
-    post_content: String
-    status: String
-    created_at: String
-    updated_at: String
+
+type getAllRecords {
+    post_id : Int  @doc(description: "Primary Id"),
+    title: String  @doc(description: "Title"),
+    url_key: String  @doc(description: "Url Key"),
+    post_content: String  @doc(description: "Content"),
+    created_at: String  @doc(description: "Created At"),
+    updated_at: String  @doc(description: "Updated at"),
+    status : Int  @doc(description: "Status"),
 }
+
+type getAllCategories {
+    category_id : Int  @doc(description: "Primary Id"),
+    name: String  @doc(description: "Name"),
+    url_key: String  @doc(description: "Url Key"),
+    created_at: String  @doc(description: "Created At"),
+    updated_at: String  @doc(description: "Updated at"),
+    status : Int  @doc(description: "Status"),
+}
+

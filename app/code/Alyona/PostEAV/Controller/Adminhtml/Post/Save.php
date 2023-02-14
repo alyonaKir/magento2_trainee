@@ -122,7 +122,8 @@ class Save extends \Magento\Backend\App\Action
         if ($count == 0) {
             $urlKey = str_replace(" ", "-", strtolower($title));
         } else {
-            $urlKey = str_replace(" ", "-", strtolower($title)) . '-' . ($count - 1);
+            $num = "-" . $count;
+            $urlKey = str_replace(" ", "-", strtolower($title)) . $num;
         }
         return $urlKey;
     }

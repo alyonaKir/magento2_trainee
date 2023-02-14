@@ -6,14 +6,14 @@ use Magento\Framework\GraphQl\Config\Element\Field;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 
-class Post implements ResolverInterface
+class Category implements ResolverInterface
 {
-    private $postRecords;
+    private $categoryRecords;
 
     public function __construct(
-        \Alyona\PostEAV\Model\Resolver\DataProvider\PostRecords $postRecords
+        \Alyona\PostEAV\Model\Resolver\DataProvider\CategoryRecords $categoryRecords
     ) {
-        $this->postRecords = $postRecords;
+        $this->categoryRecords = $categoryRecords;
     }
 
     public function resolve(
@@ -23,7 +23,7 @@ class Post implements ResolverInterface
         array $value = null,
         array $args = null
     ) {
-        $postRecords = $this->postRecords->getRecords();
-        return $postRecords;
+        $categoryRecords = $this->categoryRecords->getRecords();
+        return $categoryRecords;
     }
 }

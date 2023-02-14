@@ -8,7 +8,7 @@ class InstallSchema implements \Magento\Framework\Setup\InstallSchemaInterface
         $installer = $setup;
         $installer->startSetup();
 
-        if (version_compare($context->getVersion(), '1.7.1', '<')) {
+        if (version_compare($context->getVersion(), '1.7.2', '<')) {
             if (!$installer->tableExists('alyona_posteav')) {
                 $table = $installer->getConnection()->newTable(
                     $installer->getTable('alyona_posteav')
@@ -211,6 +211,51 @@ class InstallSchema implements \Magento\Framework\Setup\InstallSchemaInterface
                         \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_FULLTEXT
                     ),
                     ['name'],
+                    \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_FULLTEXT
+                );
+            }
+
+            if (!$installer->tableExists('alyona_posteav_comments')) {
+                $table = $installer->getConnection()->newTable(
+                    $installer->getTable('alyona_posteav_comments')
+                )
+                    ->addColumn(
+                        'comment_id',
+                        \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+                        null,
+                        [
+                            'identity' => true,
+                            'nullable' => false,
+                            'primary' => true,
+                            'unsigned' => true,
+                        ],
+                        'Comment ID'
+                    )
+                    ->addColumn(
+                        'name',
+                        \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+                        255,
+                        ['nullable => false'],
+                        'User name'
+                    )
+                    ->addColumn(
+                        'text',
+                        \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+                        '20k',
+                        [],
+                        'Post Comment'
+                    )
+                    ->setComment('Comments Table');
+                $installer->getConnection()->createTable($table);
+
+                $installer->getConnection()->addIndex(
+                    $installer->getTable('alyona_posteav_comments'),
+                    $setup->getIdxName(
+                        $installer->getTable('alyona_posteav_comments'),
+                        ['name', "text"],
+                        \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_FULLTEXT
+                    ),
+                    ['name', "text"],
                     \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_FULLTEXT
                 );
             }

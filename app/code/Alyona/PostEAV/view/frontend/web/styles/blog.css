@@ -76,3 +76,23 @@ a:hover {
     text-decoration: none;
 }
 
+.post-comment{
+    padding: 10px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.comment-info{
+    padding: 10px;
+    margin: 10px;
+}
+
+.comment-button{
+    margin: 0 auto;
+    display: block;
+    width: 80%;
+}
+

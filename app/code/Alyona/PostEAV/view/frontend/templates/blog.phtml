@@ -1,7 +1,7 @@
 <?php /** @var Magento\Framework\View\Element\Template $block */
 $productColl = $block->getProductCollection();
 
-if ($block->getPagerHtml() && count($productColl)>=1): ?>
+if ($block->getPagerHtml() && count($productColl) >= 1): ?>
 
     <div class="order-products-toolbar toolbar bottom"><?php echo $block->getPagerHtml(); ?></div>
     <?php if ($productColl && count($productColl->getData()) > 0): ?>
@@ -9,12 +9,14 @@ if ($block->getPagerHtml() && count($productColl)>=1): ?>
             <?php foreach ($productColl as $product): ?>
                 <li class="post-container">
                     <div class="post-container__content">
-                        <a href="https://<?php echo $_SERVER['HTTP_HOST']?>/blog/post/<?php echo $product->getUrlKey();?>"><h2><?php echo $product->getTitle();?></h2></a>
+                        <a href="https://<?php echo $_SERVER['HTTP_HOST'] ?>/blog/post/<?php echo $product->getUrlKey(); ?>">
+                            <h2><?php echo $product->getTitle(); ?></h2></a>
                         <div class="post-meta">
                             <div class="column1">
                                 Categories:
                                 <?php foreach ($block->getCategories($product->getId()) as $category): ?>
-                                    <a href="https://<?php echo $_SERVER['HTTP_HOST']?>/blog/<?php echo $category->getUrlKey();?>"><span class="rect" ><?php echo $category->getName();?></span></a>
+                                    <a href="https://<?php echo $_SERVER['HTTP_HOST'] ?>/blog/<?php echo $category->getUrlKey(); ?>"><span
+                                            class="rect"><?php echo $category->getName(); ?></span></a>
                                 <?php endforeach; ?>
                                 <br/>
                                 tags:
@@ -22,9 +24,9 @@ if ($block->getPagerHtml() && count($productColl)>=1): ?>
                                     <span class="rect"><?php echo $tag; ?></span>
                                 <?php endforeach; ?>
                             </div>
-                            <div class="column2"> <?php echo $product->getUpdatedAt();?></div>
+                            <div class="column2"> <?php echo $product->getUpdatedAt(); ?></div>
                         </div>
-                        <p><?php echo $block->getPreview($product->getId());?></p>
+                        <p><?php echo $block->getPreview($product->getId()); ?></p>
                     </div>
                 </li>
             <?php endforeach; ?>
@@ -33,42 +35,58 @@ if ($block->getPagerHtml() && count($productColl)>=1): ?>
             <div class="order-products-toolbar toolbar bottom"><?php echo $block->getPagerHtml(); ?></div>
         <?php endif ?>
     <?php else: ?>
-        <div class="message info empty"><span><?php echo __('You have no any records in your custom collection.'); ?></span></div>
+        <div class="message info empty">
+            <span><?php echo __('You have no any records in your custom collection.'); ?></span></div>
     <?php endif ?>
 
 
 <?php else: ?>
 
-<?php if (count($productColl) == 0):?>
-    <div class="message info empty"><span><?php echo __('You have no any records in your custom collection with this category.'); ?></span></div>
-<?php endif ?>
-
-<?php if ($productColl && count($productColl->getData()) > 0): ?>
-    <ul class="blog-container">
-        <?php foreach ($productColl as $product): ?>
-            <li class="post-container">
-                <div class="post-container__content">
-                    <a href="https://<?php echo $_SERVER['HTTP_HOST']?>/blog/post/<?php echo $product->getUrlKey();?>"><h2><?php echo $product->getTitle();?></h2></a>
-                    <div class="post-meta">
-                        <div class="column1">
-                            Categories:
-                            <?php foreach ($block->getCategories($product->getId()) as $category): ?>
-                                <a href="https://<?php echo $_SERVER['HTTP_HOST']?>/blog/<?php echo $category->getName();?>"><span class="rect" ><?php echo $category->getName();?></span></a>
-                            <?php endforeach; ?>
-                            <br/>
-                            tags:
-                            <?php foreach ($block->getTags($product->getId()) as $tag): ?>
-                                <span class="rect"><?php echo $tag; ?></span>
-                            <?php endforeach; ?>
-                        </div>
-                        <div class="column2"> <?php echo $product->getUpdatedAt();?></div>
-                    </div>
-                    <p><?php echo $product->getPostContent();?></p>
-                </div>
-            </li>
-        <?php endforeach; ?>
-    </ul>
+    <?php if (count($productColl) == 0): ?>
+        <div class="message info empty">
+            <span><?php echo __('You have no any records in your custom collection with this category.'); ?></span>
+        </div>
     <?php endif ?>
+
+    <?php if ($productColl && count($productColl->getData()) > 0): ?>
+        <ul class="blog-container">
+            <?php foreach ($productColl as $product): ?>
+                <li class="post-container">
+                    <div class="post-container__content">
+                        <a href="https://<?php echo $_SERVER['HTTP_HOST'] ?>/blog/post/<?php echo $product->getUrlKey(); ?>">
+                            <h2><?php echo $product->getTitle(); ?></h2></a>
+                        <div class="post-meta">
+                            <div class="column1">
+                                Categories:
+                                <?php foreach ($block->getCategories($product->getId()) as $category): ?>
+                                    <a href="https://<?php echo $_SERVER['HTTP_HOST'] ?>/blog/<?php echo $category->getName(); ?>"><span
+                                            class="rect"><?php echo $category->getName(); ?></span></a>
+                                <?php endforeach; ?>
+                                <br/>
+                                tags:
+                                <?php foreach ($block->getTags($product->getId()) as $tag): ?>
+                                    <span class="rect"><?php echo $tag; ?></span>
+                                <?php endforeach; ?>
+                            </div>
+                            <div class="column2"> <?php echo $product->getUpdatedAt(); ?></div>
+                        </div>
+                        <p><?php echo $product->getPostContent(); ?></p>
+                    </div>
+                </li>
+                <li>
+                    <div class="post-comment">
+                        <form "https://<?php echo $_SERVER['HTTP_HOST'] ?>/blog/post/<?php echo $product->getUrlKey(); ?>" method="post">
+                        <input class="comment-info" name="Name" type="text" placeholder="Name">
+                        <textarea class="comment-info" name="Comment" type="text"  placeholder="Comment"></textarea>
+                        <input class="comment-info comment-button" class="button" type="submit" value="Send">
+                        </form>
+                    </div>
+
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif ?>
+
 <?php endif ?>
 
 
