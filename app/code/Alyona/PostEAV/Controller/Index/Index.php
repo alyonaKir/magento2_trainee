@@ -48,6 +48,7 @@ class Index extends Action
 
     public function execute()
     {
+
         if (isset($_POST['Comment']) && isset($_POST['Name']) && $this->checkComment($_POST['Comment'])) {
             try {
                 if ($_POST['Comment']=="") {

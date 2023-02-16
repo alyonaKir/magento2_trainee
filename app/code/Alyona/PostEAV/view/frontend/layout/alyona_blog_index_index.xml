@@ -21,7 +21,7 @@
         <referenceBlock name="sidebar.additional">
             <block name="alyona_blog_widget"
                    class="Alyona\PostEAV\Block\Widget\Tags"
-                   template="Alyona_PostEAV::test.phtml"
+                   template="Alyona_PostEAV::tags.phtml"
                    cacheable="false"
             />
             <block name="alyona_blog_categoryList"
@@ -31,20 +31,12 @@
             />
         </referenceBlock>
 
-<!--        <referenceBlock name="sidebar.main"/>-->
-<!--        <referenceBlock name="sidebar.additional" remove="true"/>-->
         <referenceBlock name="page.main.title">
             <action method="setPageTitle">
                 <argument name="title" xsi:type="string">Blog</argument>
             </action>
         </referenceBlock>
 
-        <block class="Alyona\PostEAV\Block\Widget\Tags" name="alyona_posteav_tags" template="widget/tags.phtml">
-            <action method="setData">
-                <argument name="widgettitle" xsi:type="string">category</argument>
-                <argument name="widgetcontent" xsi:type="string">Demo Category Title</argument>
-            </action>
-        </block>
         <referenceBlock name="content">
             <block class="Alyona\PostEAV\Block\Content"
                    name="alyona_blog_content"
