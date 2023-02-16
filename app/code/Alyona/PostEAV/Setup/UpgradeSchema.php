@@ -13,7 +13,7 @@ class UpgradeSchema implements UpgradeSchemaInterface
         $installer = $setup;
         $installer->startSetup();
 
-        if (version_compare($context->getVersion(), '1.7.2', '<')) {
+        if (version_compare($context->getVersion(), '1.7.3', '<')) {
             if (!$installer->tableExists('alyona_posteav')) {
                 $table = $installer->getConnection()->newTable(
                     $installer->getTable('alyona_posteav')
@@ -249,6 +249,13 @@ class UpgradeSchema implements UpgradeSchemaInterface
                     '20k',
                     [],
                     'Post Comment'
+                )
+                ->addColumn(
+                    'post',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+                    1,
+                    [],
+                    'Post id'
                 )
                 ->setComment('Comments Table');
             $installer->getConnection()->createTable($table);

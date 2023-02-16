@@ -52,7 +52,7 @@ class CommentRepository implements CommentRepositoryInterface
         return $object;
     }
 
-    public function get()
+    public function get(): CommentSearchResultInterface
     {
         $searchCriteria = $this->searchCriteriaBuilder->create();
         return $this->getList($searchCriteria);

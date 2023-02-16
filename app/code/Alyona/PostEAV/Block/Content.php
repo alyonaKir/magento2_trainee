@@ -14,6 +14,7 @@ class Content extends Template
     protected $parser;
     protected $postRepository;
     protected $tagRepository;
+    protected $commentRepository;
 
     /**
      * @param \Magento\Framework\View\Element\Template\Context $context
@@ -25,7 +26,8 @@ class Content extends Template
         \Magento\Framework\View\Element\Template\Context $context,
         \Alyona\PostEAV\Model\PostFactory                $postFactory,
         \Alyona\PostEAV\Model\PostRepository             $postRepository,
-        \Alyona\PostEAV\Model\TagRepository             $tagRepository,
+        \Alyona\PostEAV\Model\TagRepository              $tagRepository,
+        \Alyona\PostEAV\Model\CommentRepository          $commentRepository,
         \Alyona\PostEAV\Model\Parser                     $parser,
         array                                            $data = []
     ) {
@@ -33,6 +35,7 @@ class Content extends Template
         $this->tagRepository = $tagRepository;
         $this->parser = $parser;
         $this->postRepository = $postRepository;
+        $this->commentRepository = $commentRepository;
         parent::__construct($context, $data);
     }
 
@@ -88,13 +91,13 @@ class Content extends Template
                 $flag = 0;
             }
         } elseif ($this->isPost()) {
+            $_SESSION['curr_post'] = $this->getUrlKey();
             $id = $this->postRepository->getByTitle($this->getUrlKey());
             foreach ($collection as $item) {
                 if ($item->getId() != $id) {
                     $collection = $this->hidePostById($collection, $item->getId());
                 }
             }
-            // return $this->postRepository->getByTitle($this->getUrlKey());
         }
         return $collection;
     }
@@ -189,5 +192,15 @@ class Content extends Template
         return $collection;
     }
 
-
+    public function getAllCommentsByPost(int $postId): array
+    {
+        $collection =[];
+        $comments = $this->commentRepository->get();
+        foreach ($comments->getItems() as $comment) {
+            if ($comment['post'] == $postId) {
+                $collection[]=$comment;
+            }
+        }
+        return $collection;
+    }
 }

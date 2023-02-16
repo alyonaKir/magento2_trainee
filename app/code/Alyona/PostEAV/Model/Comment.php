@@ -41,4 +41,14 @@ class Comment extends \Magento\Framework\Model\AbstractModel implements CommentI
     {
         $this->setData(CommentInterface::TEXT, $text);
     }
+
+    public function getPost()
+    {
+        $this->getData(CommentInterface::POST);
+    }
+
+    public function setPost(int $post)
+    {
+        $this->setData(CommentInterface::POST, $post);
+    }
 }

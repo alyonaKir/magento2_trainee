@@ -8,6 +8,7 @@ interface CommentInterface
     const ID = 'comment_id';
     const NAME = 'name';
     const TEXT = 'text';
+    const POST = 'post';
 
     /**
      * @return mixed|null
@@ -42,5 +43,14 @@ interface CommentInterface
      */
     public function setText(string $text);
 
+    /**
+     * @return mixed|null
+     */
+    public function getPost();
 
+    /**
+     * @param int $id
+     * @return $this
+     */
+    public function setPost(int $post);
 }
