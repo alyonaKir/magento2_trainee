@@ -12,6 +12,7 @@ class Save extends \Magento\Backend\App\Action
     protected $_moduleFactory;
     protected $resultRedirectFactory;
     protected $categoryRepository;
+    protected $categoryFactory;
     protected $jsonHelper;
     protected $date;
     protected $urlBuider;
@@ -23,13 +24,15 @@ class Save extends \Magento\Backend\App\Action
         \Magento\Framework\Json\Helper\Data $jsonHelper,
         \Magento\Framework\Stdlib\DateTime\DateTime $date,
         \Magento\Backend\Model\UrlInterface $urlBuilder,
-        \Alyona\PostEAV\Model\CategoryRepository $categoryRepository
+        \Alyona\PostEAV\Model\CategoryRepository $categoryRepository,
+        \Alyona\PostEAV\Model\CategoryFactory $categoryFactory
     ) {
         $this->jsonHelper = $jsonHelper;
         $this->date = $date;
         $this->categoryRepository = $categoryRepository;
         $this->_moduleFactory = $moduleFactory;
         $this->urlBuilder = $urlBuilder;
+        $this->categoryFactory = $categoryFactory;
         parent::__construct($context);
     }
 
@@ -43,9 +46,8 @@ class Save extends \Magento\Backend\App\Action
             if (isset($_SESSION['category_id']) && $_SESSION['category_id']!=null) {
                 $id = $_SESSION['category_id'];
             }
-            //$id = (int)$this->getRequest()->getParam('id');
             $date = $this->date->gmtDate();
-            $objectManager = $this->_objectManager->create('Alyona\PostEAV\Model\Category');
+            $comment = $this->categoryFactory->create();
             if ($id) {
                 $postdata = [
                     'name' => $data['category_fieldset']['name'],
@@ -53,8 +55,8 @@ class Save extends \Magento\Backend\App\Action
                     'status' => $data['category_fieldset']['status'],
                     'updated_at' => $date
                 ];
-                $objectManager->setData($postdata)->setId($id);
-                $objectManager->save();
+                $comment->setData($postdata);
+                $this->categoryRepository->save($comment);
             } else {
                 $postdata = [
                     'name' => $data['category_fieldset']['name'],
@@ -63,8 +65,8 @@ class Save extends \Magento\Backend\App\Action
                     'created_at' => $date,
                     'updated_at' => $date
                 ];
-                $objectManager->setData($postdata);
-                $objectManager->save();
+                $comment->setData($postdata);
+                $this->categoryRepository->save($comment);
                 $this->messageManager->addSuccessMessage(__('The Category has been saved.'));
             }
             $_SESSION['category_id'] = null;

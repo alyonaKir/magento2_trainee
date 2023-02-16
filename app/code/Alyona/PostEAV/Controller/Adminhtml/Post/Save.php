@@ -3,6 +3,7 @@
 namespace Alyona\PostEAV\Controller\Adminhtml\Post;
 
 use Alyona\PostEAV\Model\Post;
+use Alyona\PostEAV\Model\PostFactory;
 use Alyona\PostEAV\Model\PostRepository;
 use Magento\Backend\App\Action\Context;
 
@@ -17,6 +18,7 @@ class Save extends \Magento\Backend\App\Action
     protected $date;
     protected $urlBuider;
     protected $_publicActions;
+    protected $postFactory;
 
     public function __construct(
         Context                                     $context,
@@ -24,13 +26,15 @@ class Save extends \Magento\Backend\App\Action
         \Magento\Framework\Json\Helper\Data         $jsonHelper,
         \Magento\Framework\Stdlib\DateTime\DateTime $date,
         \Magento\Backend\Model\UrlInterface         $urlBuilder,
-        PostRepository                              $postRepository
+        PostRepository                              $postRepository,
+        PostFactory                                 $postFactory
     ) {
         $this->jsonHelper = $jsonHelper;
         $this->date = $date;
         $this->_moduleFactory = $moduleFactory;
         $this->urlBuilder = $urlBuilder;
         $this->postRepository = $postRepository;
+        $this->postFactory = $postFactory;
         parent::__construct($context);
     }
 
@@ -39,7 +43,7 @@ class Save extends \Magento\Backend\App\Action
         $_publicActions = ['save'];
         $resultRedirect = $this->resultRedirectFactory->create();
         $data = $this->getRequest()->getPostValue();
-        $objectManager = $this->_objectManager->create('Alyona\PostEAV\Model\Post');
+        $post = $this->postFactory->create();
         $tags_string = '0';
         $category_string = '0';
         $id = "";
@@ -47,10 +51,10 @@ class Save extends \Magento\Backend\App\Action
             $id = $_SESSION['id'];
         }
         if (isset($data['date_fieldset']['publish_date'])) {
-            $objectManager->load($id);
-            $objectManager->setPublishDate($data['date_fieldset']['publish_date']);
-            $objectManager->setStatus(2);
-            $objectManager->save();
+            $post = $this->postRepository->getById($id);
+            $post->setPublishDate($data['date_fieldset']['publish_date']);
+            $post->setStatus(2);
+            $this->postRepository->save($post);
             $this->messageManager->addSuccessMessage(__('The Post has been scheduled.'));
             return $resultRedirect->setPath('*/*/index');
         }
@@ -79,8 +83,8 @@ class Save extends \Magento\Backend\App\Action
                         'status' => $data['post_fieldset']['status'],
                         'updated_at' => $date
                     ];
-                    $objectManager->setData($postdata)->setId($id);
-                    $objectManager->save();
+                    $post->setData($postdata)->setId($id);
+                    $this->postRepository->save($post);
                 } else {
                     $postdata = [
                         'title' => $data['post_fieldset']['title'],
@@ -92,8 +96,8 @@ class Save extends \Magento\Backend\App\Action
                         'created_at' => $date,
                         'updated_at' => $date
                     ];
-                    $objectManager->setData($postdata);
-                    $objectManager->save();
+                    $post->setData($postdata);
+                    $this->postRepository->save($post);
                     $this->messageManager->addSuccessMessage(__('The Post has been saved.'));
                 }
             } catch (\Exception $e) {

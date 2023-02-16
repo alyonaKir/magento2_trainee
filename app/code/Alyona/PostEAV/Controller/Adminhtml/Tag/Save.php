@@ -14,18 +14,23 @@ class Save extends \Magento\Backend\App\Action
     protected $date;
     protected $urlBuider;
     protected $_publicActions;
-
+    protected $tagFactory;
+    protected $tagRepository;
     public function __construct(
         Context $context,
         Tag $moduleFactory,
         \Magento\Framework\Json\Helper\Data $jsonHelper,
         \Magento\Framework\Stdlib\DateTime\DateTime $date,
-        \Magento\Backend\Model\UrlInterface $urlBuilder
+        \Magento\Backend\Model\UrlInterface $urlBuilder,
+        \Alyona\PostEAV\Model\TagFactory $tagFactory,
+        \Alyona\PostEAV\Model\TagRepository $tagRepository
     ) {
         $this->jsonHelper = $jsonHelper;
         $this->date = $date;
         $this->_moduleFactory = $moduleFactory;
         $this->urlBuilder = $urlBuilder;
+        $this->tagFactory = $tagFactory;
+        $this->tagRepository = $tagRepository;
         parent::__construct($context);
     }
 
@@ -40,24 +45,33 @@ class Save extends \Magento\Backend\App\Action
                 $id = $_SESSION['tag_id'];
             }
             $date = $this->date->gmtDate();
-            $objectManager = $this->_objectManager->create('Alyona\PostEAV\Model\Tag');
+            $tag = $this->tagFactory->create();
+
             if ($id) {
                 $postdata = [
                     'name' => $data['tag_fieldset']['name'],
                 ];
-                $objectManager->setData($postdata)->setId($id);
-                $objectManager->save();
+                $tag->setData($postdata)->setId($id);
+                if ($this->checkTag($tag->getName())) {
+                    $this->tagRepository->save($tag);
+                } else {
+                    throw new \Exception();
+                }
             } else {
                 $postdata = [
                     'name' => $data['tag_fieldset']['name'],
                 ];
-                $objectManager->setData($postdata);
-                $objectManager->save();
+                $tag->setData($postdata);
+                if ($this->checkTag($tag->getName())) {
+                    $this->tagRepository->save($tag);
+                } else {
+                    throw new \Exception();
+                }
                 $this->messageManager->addSuccessMessage(__('The Tag has been saved.'));
             }
             $_SESSION['tag_id'] = null;
         } catch (\Exception $e) {
-            $this->messageManager->addErrorMessage(nl2br($e->getMessage()));
+            $this->messageManager->addErrorMessage(__('Try again.'));
             return $resultRedirect->setPath('*/*/edit');
         }
         if ($this->getRequest()->getParam('back')) {
@@ -65,5 +79,16 @@ class Save extends \Magento\Backend\App\Action
             return $resultRedirect->setPath('*/*/edit', ['tag_id' => $id, '_current' => true]);
         }
         return $resultRedirect->setPath('*/*/index');
+    }
+
+    private function checkTag($name)
+    {
+        $tags = $this->tagRepository->get();
+        foreach ($tags->getItems() as $tag) {
+            if ($tag->getName() == $name) {
+                return false;
+            }
+        }
+        return true;
     }
 }
