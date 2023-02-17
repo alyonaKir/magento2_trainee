@@ -15,6 +15,7 @@ class Content extends Template
     protected $postRepository;
     protected $tagRepository;
     protected $commentRepository;
+    protected $collectionFactory;
 
     /**
      * @param \Magento\Framework\View\Element\Template\Context $context
@@ -25,6 +26,7 @@ class Content extends Template
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
         \Alyona\PostEAV\Model\PostFactory                $postFactory,
+        \Alyona\PostEAV\Model\ResourceModel\Post\Grid\CollectionFactory $collectionFactory,
         \Alyona\PostEAV\Model\PostRepository             $postRepository,
         \Alyona\PostEAV\Model\TagRepository              $tagRepository,
         \Alyona\PostEAV\Model\CommentRepository          $commentRepository,
@@ -36,6 +38,7 @@ class Content extends Template
         $this->parser = $parser;
         $this->postRepository = $postRepository;
         $this->commentRepository = $commentRepository;
+        $this->collectionFactory = $collectionFactory;
         parent::__construct($context, $data);
     }
 
@@ -71,8 +74,8 @@ class Content extends Template
         $flag = 0;
         $page = ($this->getRequest()->getParam('p')) ? $this->getRequest()->getParam('p') : 1;
         $pageSize = ($this->getRequest()->getParam('limit')) ? $this->getRequest()->getParam('limit') : 5;
-        $collection = $this->postFactory->create()->getCollection();
-        $collection = $this->checkEnable($collection);
+        $collection = $this->collectionFactory->create();
+        $collection->addFieldToFilter('status', 1);
         $collection->setPageSize($pageSize);
         $collection->setCurPage($page);
         if ($this->checkGetParametrs()) {
