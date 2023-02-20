@@ -50,7 +50,7 @@ class Content extends Template
         $page_data = $this->getCustomData();
         if ($this->getCustomData()) {
             $pager = $this->getLayout()->createBlock(
-                \Magento\Theme\Block\Html\Pager::class,
+                \Alyona\PostEAV\Model\CustomPager::class,
                 'custom.pager.name'
             )
                 ->setAvailableLimit($page_size)
@@ -71,7 +71,7 @@ class Content extends Template
         $page = ($this->getRequest()->getParam('p')) ? $this->getRequest()->getParam('p') : 1;
         $pageSize = ($this->getRequest()->getParam('limit')) ? $this->getRequest()->getParam('limit') : 5; // set minimum records
         // get custom collection
-        $this->filterCollection();
+        $this->filterCollection($pageSize);
         $collection = $this->customFactory->getCollection();
         $collection->addFieldToFilter('status', 1);
         $collection->setPageSize($pageSize);
@@ -103,16 +103,20 @@ class Content extends Template
         return $page_array;
     }
 
-    private function filterCollection()
+    private function filterCollection($pageSize)
     {
         $flag = 0;
         $collection = $this->customdataCollection->create();
         $this->reset();
         if ($this->checkGetParametrs()) {
+            $this->reset();
             return $this->filterByTag($collection, $_GET['tag']);
         }
+        $_SESSION['categoryName']= 'blog';
         if ($this->getUrlKey() != "" && !$this->isPost()) {
             $count = [];
+
+            $_SESSION['categoryName'] = $this->getUrlKey();
             foreach ($collection as $item) {
                 foreach ($this->getCategories($item->getId()) as $category) {
                     if ($this->check_categories($this->getCategories($item->getId()), $this->getUrlKey())) {
@@ -203,6 +207,9 @@ class Content extends Template
         $buff_arr = explode('/', $buff);
         if (count($buff_arr) == 2) {
             return "";
+        }
+        if (isset($_GET['p'])) {
+            return $_SESSION['categoryName'];
         }
         return array_pop($buff_arr);
     }
