@@ -10,12 +10,12 @@ class Content extends Template
     /**
      * @var \Magento\Catalog\Model\ProductRepository
      */
-    protected $postFactory;
+    protected $customFactory;
     protected $parser;
     protected $postRepository;
     protected $tagRepository;
     protected $commentRepository;
-    protected $collectionFactory;
+    protected $customdataCollection;
 
     /**
      * @param \Magento\Framework\View\Element\Template\Context $context
@@ -25,63 +25,93 @@ class Content extends Template
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
-        \Alyona\PostEAV\Model\PostFactory                $postFactory,
-        \Alyona\PostEAV\Model\ResourceModel\Post\Grid\CollectionFactory $collectionFactory,
+        \Alyona\PostEAV\Model\Post              $customFactory,
+        \Alyona\PostEAV\Model\ResourceModel\Post\Grid\CollectionFactory $customdataCollection,
         \Alyona\PostEAV\Model\PostRepository             $postRepository,
         \Alyona\PostEAV\Model\TagRepository              $tagRepository,
         \Alyona\PostEAV\Model\CommentRepository          $commentRepository,
         \Alyona\PostEAV\Model\Parser                     $parser,
         array                                            $data = []
     ) {
-        $this->postFactory = $postFactory;
+        $this->customFactory = $customFactory;
         $this->tagRepository = $tagRepository;
         $this->parser = $parser;
         $this->postRepository = $postRepository;
         $this->commentRepository = $commentRepository;
-        $this->collectionFactory = $collectionFactory;
+        $this->customdataCollection= $customdataCollection;
         parent::__construct($context, $data);
     }
 
     protected function _prepareLayout()
     {
+        $this->pageConfig->getTitle()->set(__('My Custom Pagination'));
         parent::_prepareLayout();
-        $this->pageConfig->getTitle()->set(__('Blog'));
-        if ($this->getProductCollection()) {
+        $page_size = $this->getPagerCount();
+        $page_data = $this->getCustomData();
+        if ($this->getCustomData()) {
             $pager = $this->getLayout()->createBlock(
-                'Magento\Theme\Block\Html\Pager',
-                'custom.history.pager'
-            )->setAvailableLimit([5 => 5, 10 => 10, 15 => 15, 20 => 20])
-                ->setShowPerPage(true)->setCollection(
-                    $this->getProductCollection()
-                );
+                \Magento\Theme\Block\Html\Pager::class,
+                'custom.pager.name'
+            )
+                ->setAvailableLimit($page_size)
+                ->setShowPerPage(true)
+                ->setCollection($page_data);
             $this->setChild('pager', $pager);
-            $this->getProductCollection()->load();
+            $this->getCustomData()->load();
         }
         return $this;
     }
-
     public function getPagerHtml()
     {
-        if (!$this->isPost()) {
-            return $this->getChildHtml('pager');
-        } else {
-            return null;
-        }
+        return $this->getChildHtml('pager');
     }
-
-    public function getProductCollection()
+    public function getCustomData()
     {
-        $flag = 0;
+        // get param values
         $page = ($this->getRequest()->getParam('p')) ? $this->getRequest()->getParam('p') : 1;
-        $pageSize = ($this->getRequest()->getParam('limit')) ? $this->getRequest()->getParam('limit') : 5;
-        $collection = $this->collectionFactory->create();
-        $collection->addFieldToFilter('status', 1);
+        $pageSize = ($this->getRequest()->getParam('limit')) ? $this->getRequest()->getParam('limit') : 5; // set minimum records
+        // get custom collection
+        $collection = $this->customFactory->getCollection();
         $collection->setPageSize($pageSize);
         $collection->setCurPage($page);
+        $collection = $this->filterCollection($collection);
+        return $collection;
+    }
+    public function getPagerCount()
+    {
+        // get collection
+        $minimum_show = 5; // set minimum records
+        $page_array = [];
+        $list_data = $this->customdataCollection->create();
+        $list_count = ceil(count($list_data->getData()));
+        $show_count = $minimum_show + 1;
+        if (count($list_data) >= $show_count) {
+            $list_count = $list_count / $minimum_show;
+            $page_nu = $total = $minimum_show;
+            $page_array[$minimum_show] = $minimum_show;
+            for ($x = 0; $x <= $list_count; $x++) {
+                $total = $total + $page_nu;
+                $page_array[$total] = $total;
+            }
+        } else {
+            $page_array[$minimum_show] = $minimum_show;
+            $minimum_show = $minimum_show + $minimum_show;
+            $page_array[$minimum_show] = $minimum_show;
+        }
+        return $page_array;
+    }
+
+    private function filterCollection($collection)
+    {
+        $flag = 0;
+        //$collection = $this->customdataCollection->create();
+        $collection->addFieldToFilter('status', 1);
+
         if ($this->checkGetParametrs()) {
             return $this->filterByTag($collection, $_GET['tag']);
         }
         if ($this->getUrlKey() != "" && !$this->isPost()) {
+            $count = [];
             foreach ($collection as $item) {
                 foreach ($this->getCategories($item->getId()) as $category) {
                     if ($this->check_categories($this->getCategories($item->getId()), $this->getUrlKey())) {
@@ -90,21 +120,25 @@ class Content extends Template
                 }
                 if ($flag != 1) {
                     $collection = $this->hidePostById($collection, $item->getId());
+                } else {
+                    $count[] = $item->getId();
                 }
                 $flag = 0;
             }
+            $collection->addFieldToFilter('post_id', ['in'=>$count]);
         } elseif ($this->isPost()) {
             $_SESSION['curr_post'] = $this->getUrlKey();
             $id = $this->postRepository->getByTitle($this->getUrlKey());
             foreach ($collection as $item) {
                 if ($item->getId() != $id) {
                     $collection = $this->hidePostById($collection, $item->getId());
+                } else {
+                    $collection->addFieldToFilter('post_id', ['in'=>$item->getId()]);
                 }
             }
         }
         return $collection;
     }
-
     public function getCategories($id): array
     {
         $post = $this->postRepository->getById($id);
@@ -123,20 +157,10 @@ class Content extends Template
         return mb_substr($post->getPostContent(), 0, 100) . "...";
     }
 
-    private function hidePostById(&$collection, $id)
+    private function hidePostById($collection, $id)
     {
         foreach ($collection as $item) {
             $collection->removeItemByKey($id);
-        }
-        return $collection;
-    }
-
-    private function checkEnable(&$collection)
-    {
-        foreach ($collection as $item) {
-            if ($item->getStatus()!=1) {
-                $collection = $this->hidePostById($collection, $item->getId());
-            }
         }
         return $collection;
     }
@@ -184,24 +208,27 @@ class Content extends Template
         return false;
     }
 
-    private function filterByTag(&$collection, $getTag)
+    private function filterByTag($collection, $getTag)
     {
-        $k = 0;
+        $k = [];
         foreach ($collection as $item) {
             if (!in_array($getTag, $this->getTags($item->getId()))) {
                 $this->hidePostById($collection, $item->getId());
+            } else {
+                $k[] = $item->getId();
             }
         }
+        $collection->addFieldToFilter('post_id', ['in'=>$k]);
         return $collection;
     }
 
     public function getAllCommentsByPost(int $postId): array
     {
-        $collection =[];
+        $collection = [];
         $comments = $this->commentRepository->get();
         foreach ($comments->getItems() as $comment) {
             if ($comment['post'] == $postId) {
-                $collection[]=$comment;
+                $collection[] = $comment;
             }
         }
         return $collection;
