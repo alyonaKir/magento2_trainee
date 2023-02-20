@@ -71,10 +71,12 @@ class Content extends Template
         $page = ($this->getRequest()->getParam('p')) ? $this->getRequest()->getParam('p') : 1;
         $pageSize = ($this->getRequest()->getParam('limit')) ? $this->getRequest()->getParam('limit') : 5; // set minimum records
         // get custom collection
+        $this->filterCollection();
         $collection = $this->customFactory->getCollection();
+        $collection->addFieldToFilter('status', 1);
         $collection->setPageSize($pageSize);
         $collection->setCurPage($page);
-        $collection = $this->filterCollection($collection);
+        //$collection = $this->filterCollection($collection);
         return $collection;
     }
     public function getPagerCount()
@@ -101,12 +103,11 @@ class Content extends Template
         return $page_array;
     }
 
-    private function filterCollection($collection)
+    private function filterCollection()
     {
         $flag = 0;
-        //$collection = $this->customdataCollection->create();
-        $collection->addFieldToFilter('status', 1);
-
+        $collection = $this->customdataCollection->create();
+        $this->reset();
         if ($this->checkGetParametrs()) {
             return $this->filterByTag($collection, $_GET['tag']);
         }
@@ -119,25 +120,27 @@ class Content extends Template
                     }
                 }
                 if ($flag != 1) {
-                    $collection = $this->hidePostById($collection, $item->getId());
+                    $this->hidePostById($item->getId());
                 } else {
                     $count[] = $item->getId();
                 }
                 $flag = 0;
             }
-            $collection->addFieldToFilter('post_id', ['in'=>$count]);
+            //$collection->addFieldToFilter('post_id', ['in'=>$count]);
         } elseif ($this->isPost()) {
             $_SESSION['curr_post'] = $this->getUrlKey();
             $id = $this->postRepository->getByTitle($this->getUrlKey());
             foreach ($collection as $item) {
                 if ($item->getId() != $id) {
-                    $collection = $this->hidePostById($collection, $item->getId());
+                    $this->hidePostById($item->getId());
                 } else {
-                    $collection->addFieldToFilter('post_id', ['in'=>$item->getId()]);
+                    //$collection->addFieldToFilter('post_id', ['in'=>$item->getId()]);
                 }
             }
+        } else {
+            $this->reset();
         }
-        return $collection;
+        //return $collection;
     }
     public function getCategories($id): array
     {
@@ -157,12 +160,31 @@ class Content extends Template
         return mb_substr($post->getPostContent(), 0, 100) . "...";
     }
 
-    private function hidePostById($collection, $id)
+    private function hidePostById($id)
     {
-        foreach ($collection as $item) {
-            $collection->removeItemByKey($id);
+        $posts = $this->postRepository;
+        $post = $posts->getById($id);
+        if ($post->getStatus()==1) {
+            $post->setStatus(3);
+            $posts->save($post);
         }
-        return $collection;
+//        foreach ($collection as $item) {
+//            $collection->removeItemByKey($id);
+//        }
+//        return $collection;
+    }
+
+    private function reset()
+    {
+        $posts = $this->postRepository->get();
+        $postRepository = $this->postRepository;
+        foreach ($posts->getItems() as $post) {
+            if ($post->getStatus() == 3) {
+                $buff = $postRepository->getById($post->getId());
+                $buff->setStatus(1);
+                $this->postRepository->save($buff);
+            }
+        }
     }
 
     private function isPost()
@@ -213,7 +235,7 @@ class Content extends Template
         $k = [];
         foreach ($collection as $item) {
             if (!in_array($getTag, $this->getTags($item->getId()))) {
-                $this->hidePostById($collection, $item->getId());
+                $this->hidePostById($item->getId());
             } else {
                 $k[] = $item->getId();
             }

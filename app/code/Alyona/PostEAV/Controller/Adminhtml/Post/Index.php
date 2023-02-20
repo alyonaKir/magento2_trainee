@@ -2,6 +2,8 @@
 
 namespace Alyona\PostEAV\Controller\Adminhtml\Post;
 
+use Alyona\PostEAV\Block\Content;
+
 class Index extends \Magento\Backend\App\Action
 {
     protected $resultPageFactory = false;
