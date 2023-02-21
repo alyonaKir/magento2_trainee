@@ -112,10 +112,9 @@ class Content extends Template
             $this->reset();
             return $this->filterByTag($collection, $_GET['tag']);
         }
-        $_SESSION['categoryName']= 'blog';
+        //$_SESSION['categoryName']= 'blog';
         if ($this->getUrlKey() != "" && !$this->isPost()) {
             $count = [];
-
             $_SESSION['categoryName'] = $this->getUrlKey();
             foreach ($collection as $item) {
                 foreach ($this->getCategories($item->getId()) as $category) {

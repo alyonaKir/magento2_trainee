@@ -1,6 +1,6 @@
 <?php
 
-namespace Alyona\PostEAV\Controller\Index;
+namespace Alyona\PostEAV\Controller\Category;
 
 use Alyona\PostEAV\Model\CommentFactory;
 use Alyona\PostEAV\Model\CommentRepository;
@@ -11,7 +11,7 @@ use Magento\Framework\App\RequestInterface;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\View\Result\PageFactory;
 
-class Index extends Action
+class Blog extends Action
 {
     /**
      * @var PageFactory

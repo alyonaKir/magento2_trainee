@@ -42,8 +42,8 @@ class CustomRouter implements RouterInterface
         $identifier = trim($request->getPathInfo(), '/');
         if (strpos($identifier, 'blog') !== false) {
             $request->setModuleName('blog');
-            $request->setControllerName('index');
-            $request->setActionName('index');
+            $request->setControllerName('category');
+            $request->setActionName('blog');
 //            $request->setParams([
 //                'post' => 'post_value',
 //                'post_title' => 'url_key'
