@@ -181,7 +181,7 @@ class Content extends Template
         }
     }
 
-    private function isPost()
+    public function isPost()
     {
         $buff = $_SERVER['REQUEST_URI'];
         $buff_arr = explode('/', $buff);

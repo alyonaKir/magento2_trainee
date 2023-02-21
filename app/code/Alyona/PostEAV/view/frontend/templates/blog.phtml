@@ -2,7 +2,7 @@
 $productColl = $block->getCustomData();
 
 
-if ($block->getPagerHtml() && count($productColl) >= 1): ?>
+if ($block->getPagerHtml() && count($productColl) >= 1 && !$block->isPost()): ?>
 
     <div class="order-products-toolbar toolbar bottom"><?php echo $block->getPagerHtml(); ?></div>
     <?php if ($productColl && count($productColl->getData()) > 0): ?>
@@ -80,7 +80,6 @@ if ($block->getPagerHtml() && count($productColl) >= 1): ?>
                 <div class="post-comment">
                     <form action="https://<?php echo $_SERVER['HTTP_HOST'] ?>/blog/post/<?php echo $product->getUrlKey(); ?>"
                           method="post">
-                    <input class="comment-info input-text" name="Name" type="text" placeholder="Name" data-validate="{required:true, 'validate-email':true}">
                     <textarea class="comment-info" name="Comment" type="text" placeholder="Comment"></textarea>
                     <input class="comment-info comment-button" class="button" type="submit" value="Send">
                     </form>

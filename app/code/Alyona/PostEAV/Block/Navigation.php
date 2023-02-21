@@ -20,8 +20,7 @@ class Navigation extends Template
         \Magento\Framework\View\Element\Template\Context $context,
         \Alyona\PostEAV\Model\CategoryRepository             $categoryRepository,
         array                                            $data = []
-    )
-    {
+    ) {
         $this->categoryRepository = $categoryRepository;
         parent::__construct($context, $data);
     }

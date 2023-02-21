@@ -17,6 +17,7 @@ class Save extends \Magento\Backend\App\Action
     protected $jsonHelper;
     protected $date;
     protected $urlBuider;
+    protected $storeManager;
     protected $_publicActions;
     protected $postFactory;
 
@@ -27,7 +28,8 @@ class Save extends \Magento\Backend\App\Action
         \Magento\Framework\Stdlib\DateTime\DateTime $date,
         \Magento\Backend\Model\UrlInterface         $urlBuilder,
         PostRepository                              $postRepository,
-        PostFactory                                 $postFactory
+        PostFactory                                 $postFactory,
+        \Magento\Store\Model\StoreManagerInterface $storeManager
     ) {
         $this->jsonHelper = $jsonHelper;
         $this->date = $date;
@@ -35,6 +37,7 @@ class Save extends \Magento\Backend\App\Action
         $this->urlBuilder = $urlBuilder;
         $this->postRepository = $postRepository;
         $this->postFactory = $postFactory;
+        $this->storeManager = $storeManager;
         parent::__construct($context);
     }
 
@@ -81,7 +84,8 @@ class Save extends \Magento\Backend\App\Action
                         'tags' => $tags_string,
                         'category_id' => $category_string,
                         'status' => $data['post_fieldset']['status'],
-                        'updated_at' => $date
+                        'updated_at' => $date,
+                        'store_id' => $this->storeManager->getStore()->getId()
                     ];
                     $post->setData($postdata)->setId($id);
                     $this->postRepository->save($post);
@@ -94,7 +98,8 @@ class Save extends \Magento\Backend\App\Action
                         'category_id' => $category_string,
                         'status' => $data['post_fieldset']['status'],
                         'created_at' => $date,
-                        'updated_at' => $date
+                        'updated_at' => $date,
+                        'store_id' => $this->storeManager->getStore()->getId()
                     ];
                     $post->setData($postdata);
                     $this->postRepository->save($post);

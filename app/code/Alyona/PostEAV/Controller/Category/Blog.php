@@ -21,6 +21,7 @@ class Blog extends Action
     protected $commentFactory;
     protected $postRepository;
 
+    protected $customerRepository;
     /**
      * @var RequestInterface
      */
@@ -36,7 +37,8 @@ class Blog extends Action
         RequestInterface  $request,
         CommentRepository $commentRepository,
         CommentFactory    $commentFactory,
-        PostRepository    $postRepository
+        PostRepository    $postRepository,
+        \Magento\Customer\Model\ResourceModel\CustomerRepository\Interceptor $customerRepository
     ) {
         parent::__construct($context);
         $this->resultPageFactory = $resultPageFactory;
@@ -44,17 +46,24 @@ class Blog extends Action
         $this->commentRepository = $commentRepository;
         $this->commentFactory = $commentFactory;
         $this->postRepository = $postRepository;
+        $this->customerRepository = $customerRepository;
     }
 
     public function execute()
     {
-        if (isset($_POST['Comment']) && isset($_POST['Name']) && $this->checkComment($_POST['Comment'])) {
+        if (isset($_SESSION['customer_base']['customer_id'])) {
+            $customer = $this->customerRepository->getById($_SESSION['customer_base']['customer_id']);
+            $name = $customer->getFirstname();
+        }else{
+            $name = "Guest";
+        }
+        if (isset($_POST['Comment']) && $this->checkComment($_POST['Comment'])) {
             try {
                 if ($_POST['Comment']=="") {
                     throw new NoSuchEntityException();
                 }
                 $postdata = [
-                    'name' => $_POST['Name']=="" ? "Secret Guest" : $_POST['Name'],
+                    'name' => $name,
                     'text' => $_POST['Comment'],
                     'post' => $this->postRepository->getByTitle($_SESSION['curr_post'])
                 ];
