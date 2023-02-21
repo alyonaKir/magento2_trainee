@@ -69,20 +69,18 @@ class Content extends Template
     {
         // get param values
         $page = ($this->getRequest()->getParam('p')) ? $this->getRequest()->getParam('p') : 1;
-        $pageSize = ($this->getRequest()->getParam('limit')) ? $this->getRequest()->getParam('limit') : 5; // set minimum records
+        $pageSize = ($this->getRequest()->getParam('limit')) ? $this->getRequest()->getParam('limit') : 5;
         // get custom collection
         $this->filterCollection($pageSize);
         $collection = $this->customFactory->getCollection();
         $collection->addFieldToFilter('status', 1);
         $collection->setPageSize($pageSize);
         $collection->setCurPage($page);
-        //$collection = $this->filterCollection($collection);
         return $collection;
     }
     public function getPagerCount()
     {
-        // get collection
-        $minimum_show = 5; // set minimum records
+        $minimum_show = 5;
         $page_array = [];
         $list_data = $this->customdataCollection->create();
         $list_count = ceil(count($list_data->getData()));
@@ -103,18 +101,17 @@ class Content extends Template
         return $page_array;
     }
 
-    private function filterCollection($pageSize)
+    private function filterCollection()
     {
         $flag = 0;
         $collection = $this->customdataCollection->create();
         $this->reset();
         if ($this->checkGetParametrs()) {
             $this->reset();
-            return $this->filterByTag($collection, $_GET['tag']);
+            $this->filterByTag($collection, $_GET['tag']);
+            return;
         }
-        //$_SESSION['categoryName']= 'blog';
         if ($this->getUrlKey() != "" && !$this->isPost()) {
-            $count = [];
             $_SESSION['categoryName'] = $this->getUrlKey();
             foreach ($collection as $item) {
                 foreach ($this->getCategories($item->getId()) as $category) {
@@ -124,26 +121,20 @@ class Content extends Template
                 }
                 if ($flag != 1) {
                     $this->hidePostById($item->getId());
-                } else {
-                    $count[] = $item->getId();
                 }
                 $flag = 0;
             }
-            //$collection->addFieldToFilter('post_id', ['in'=>$count]);
         } elseif ($this->isPost()) {
             $_SESSION['curr_post'] = $this->getUrlKey();
             $id = $this->postRepository->getByTitle($this->getUrlKey());
             foreach ($collection as $item) {
                 if ($item->getId() != $id) {
                     $this->hidePostById($item->getId());
-                } else {
-                    //$collection->addFieldToFilter('post_id', ['in'=>$item->getId()]);
                 }
             }
         } else {
             $this->reset();
         }
-        //return $collection;
     }
     public function getCategories($id): array
     {
