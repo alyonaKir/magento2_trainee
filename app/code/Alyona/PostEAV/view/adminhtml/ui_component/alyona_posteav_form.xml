@@ -132,5 +132,22 @@
             </formElements>
         </field>
 
+        <field name="publish_date" formElement="date">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <!--                    <item name="source" xsi:type="string">publish_date</item>-->
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="validate-date" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">Publish Date</label>
+                <visible>true</visible>
+                <!--                <dataScope>publish_date</dataScope>-->
+            </settings>
+        </field>
+
     </fieldset>
 </form>

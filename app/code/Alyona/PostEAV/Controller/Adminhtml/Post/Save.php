@@ -54,10 +54,7 @@ class Save extends \Magento\Backend\App\Action
             $id = $_SESSION['id'];
         }
         if (isset($data['date_fieldset']['publish_date'])) {
-            $post = $this->postRepository->getById($id);
-            $post->setPublishDate($data['date_fieldset']['publish_date']);
-            $post->setStatus(2);
-            $this->postRepository->save($post);
+            $this->schedule($id, $data['date_fieldset']['publish_date']);
             $this->messageManager->addSuccessMessage(__('The Post has been scheduled.'));
             return $resultRedirect->setPath('*/*/index');
         }
@@ -74,6 +71,12 @@ class Save extends \Magento\Backend\App\Action
                 $category_string = $data['post_fieldset']['category_id'];
             }
 
+            if (isset($data['post_fieldset']['publish_date']) && $data['post_fieldset']['publish_date']!="") {
+                $status = 2;
+            } else {
+                $status = $data['post_fieldset']['status'];
+            }
+
             try {
                 $date = $this->date->gmtDate();
                 if ($id) {
@@ -83,9 +86,10 @@ class Save extends \Magento\Backend\App\Action
                         'post_content' => $data['post_fieldset']['post_content'],
                         'tags' => $tags_string,
                         'category_id' => $category_string,
-                        'status' => $data['post_fieldset']['status'],
+                        'status' => $status,
                         'updated_at' => $date,
-                        'store_id' => $this->storeManager->getStore()->getId()
+                        'store_id' => $this->storeManager->getStore()->getId(),
+                        'publish_date'=> $status==2 ? $data['post_fieldset']['publish_date'] : ""
                     ];
                     $post->setData($postdata)->setId($id);
                     $this->postRepository->save($post);
@@ -96,13 +100,15 @@ class Save extends \Magento\Backend\App\Action
                         'post_content' => $data['post_fieldset']['post_content'],
                         'tags' => $tags_string,
                         'category_id' => $category_string,
-                        'status' => $data['post_fieldset']['status'],
+                        'status' => $status,
                         'created_at' => $date,
                         'updated_at' => $date,
-                        'store_id' => $this->storeManager->getStore()->getId()
+                        'store_id' => $this->storeManager->getStore()->getId(),
+                        'publish_date'=> $status==2 ? $data['post_fieldset']['publish_date'] : ""
                     ];
                     $post->setData($postdata);
                     $this->postRepository->save($post);
+
                     $this->messageManager->addSuccessMessage(__('The Post has been saved.'));
                 }
             } catch (\Exception $e) {
@@ -135,5 +141,13 @@ class Save extends \Magento\Backend\App\Action
             $urlKey = str_replace(" ", "-", strtolower($title)) . $num;
         }
         return $urlKey;
+    }
+
+    private function schedule($id, $date)
+    {
+        $post = $this->postRepository->getById($id);
+        $post->setPublishDate($date);
+        $post->setStatus(2);
+        $this->postRepository->save($post);
     }
 }

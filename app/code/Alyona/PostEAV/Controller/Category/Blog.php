@@ -54,7 +54,7 @@ class Blog extends Action
         if (isset($_SESSION['customer_base']['customer_id'])) {
             $customer = $this->customerRepository->getById($_SESSION['customer_base']['customer_id']);
             $name = $customer->getFirstname();
-        }else{
+        } else {
             $name = "Guest";
         }
         if (isset($_POST['Comment']) && $this->checkComment($_POST['Comment'])) {

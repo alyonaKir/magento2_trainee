@@ -8,11 +8,11 @@ class Enabledisable implements ArrayInterface
     public function toOptionArray()
     {
         $options = [
-            0 => [
+            1 => [
                 'label' => 'Enable',
                 'value' => 1
             ],
-            1 => [
+            0 => [
                 'label' => 'Disable',
                 'value' => 0
             ],
@@ -22,7 +22,7 @@ class Enabledisable implements ArrayInterface
             ],
             3 => [
                 'label' => 'Enable',
-                'value' => 2
+                'value' => 3
             ]
         ];
         return $options;
