@@ -34,9 +34,6 @@
             <item name="js_config" xsi:type="array">
                 <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
             </item>
-            <!--            <item name="config" xsi:type="array">-->
-            <!--                <item name="submit_url" xsi:type="url" path="*/*/save"/>-->
-            <!--            </item>-->
         </argument>
         <settings>
             <submitUrl path="*/*/save"/>
@@ -69,6 +66,9 @@
                     <item name="unique" xsi:type="boolean">true</item>
                     <item name="dataType" xsi:type="string">text</item>
                     <item name="formElement" xsi:type="string">input</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
                 </item>
             </argument>
         </field>
@@ -81,6 +81,9 @@
                     <item name="dataType" xsi:type="string">text</item>
                     <item name="formElement" xsi:type="string">textarea</item>
                     <item name="rows" xsi:type="number">20</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
                 </item>
             </argument>
         </field>
